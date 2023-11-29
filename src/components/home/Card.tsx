@@ -1,0 +1,73 @@
+import { useRef, RefObject } from "react";
+import { Link } from "react-router-dom";
+
+interface VideoData {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+  video: string;
+  View: number;
+  channel: {
+    _id: string;
+    name: string;
+    image: string;
+    // Add other channel properties here
+  };
+}
+
+const Card = ({ Video }: { Video: VideoData }) => {
+  const videoPlayPause: RefObject<HTMLVideoElement> = useRef(null);
+
+  const handleStart = () => {
+    if (videoPlayPause.current) {
+      videoPlayPause.current.play().catch((error) => {
+        // Handle autoplay blocked error here
+        console.error("Autoplay was blocked:", error);
+      });
+    }
+  };
+
+  const handlePause = () => {
+    if (videoPlayPause.current) {
+      videoPlayPause.current.pause();
+    }
+  };
+
+  return (
+    <li className="my-2 mx-1" id={Video._id}>
+      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-96">
+        <video
+          src={Video.video}
+          width={380}
+          height={240}
+          ref={videoPlayPause}
+          onMouseEnter={handleStart}
+          onMouseLeave={handlePause}
+          poster={Video.image}
+          preload="auto"
+          className="rounded-lg object-cover"
+          muted
+        />
+        <div className="flex gap-6 items-center">
+          <div>
+            <img
+              src={Video.channel.image}
+              alt="Profile pic"
+              width={100}
+              height={100}
+              className="rounded-full w-14 h-14"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <h3 className="font-mono font-extrabold text-xl">{Video.title}</h3>
+            <h3 className="text-gray-400">{Video.channel.name}</h3>
+            <p className="text-gray-400 text-sm">{Video.View} view</p>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+};
+
+export default Card;
