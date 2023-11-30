@@ -35,7 +35,7 @@ export const FetchVideo = createApi({
   }),
   tagTypes: ["Video", "showVideo", "Comment"],
   endpoints: (builder) => ({
-    startVideo: builder.query<VideoDataWithChannels[], void>({
+    startVideo: builder.query<VideoDataWithChannels, void>({
       // Define your query function here
       query: () => "/",
       providesTags: ["Video"],

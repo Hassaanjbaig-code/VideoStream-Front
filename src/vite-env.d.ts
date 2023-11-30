@@ -269,14 +269,14 @@ interface commentDelete {
   };
 }
 
-type VideoDataWithChannels = {
-  status: number;
-  data: {
+interface HomeVideo {
     video: {
       _id: string;
       title: string;
       description: string;
       image: string;
+      video: string;
+      View: number;
       channel: {
         _id: string;
         name: string;
@@ -284,8 +284,12 @@ type VideoDataWithChannels = {
         // Add other channel properties here
       };
       // Add other video properties here
-    };
   };
+}
+
+type VideoDataWithChannels = {
+  status: number;
+  data: HomeVideo[]
 };
 
 type VideoData = {

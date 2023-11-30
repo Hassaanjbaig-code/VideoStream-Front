@@ -1,28 +1,14 @@
 import { useRef, RefObject } from "react";
 import { Link } from "react-router-dom";
+import { HomeVideo } from "../../vite-env";
 
-interface VideoData {
-  _id: string;
-  title: string;
-  description: string;
-  image: string;
-  video: string;
-  View: number;
-  channel: {
-    _id: string;
-    name: string;
-    image: string;
-    // Add other channel properties here
-  };
-}
-
-const Card = ({ Video }: { Video: VideoData }) => {
+const Card = ({ VideoData }: {  VideoData: HomeVideo }) => {
+  let Video = VideoData.video
   const videoPlayPause: RefObject<HTMLVideoElement> = useRef(null);
 
   const handleStart = () => {
     if (videoPlayPause.current) {
       videoPlayPause.current.play().catch((error) => {
-        // Handle autoplay blocked error here
         console.error("Autoplay was blocked:", error);
       });
     }
@@ -35,7 +21,7 @@ const Card = ({ Video }: { Video: VideoData }) => {
   };
 
   return (
-    <li className="my-2 mx-1" id={Video._id}>
+    <li key={Video._id} className="my-2 mx-1" id={Video._id}>
       <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-96">
         <video
           src={Video.video}
