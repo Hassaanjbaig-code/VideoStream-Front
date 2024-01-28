@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 // import { handleCreateChannel } from "../../vite-env";
 
 const CreateChannel = () => {
-  const [createChannel, { isError, isSuccess }] = useCreateChannelMutation();
+  const [createChannel, { isError, isSuccess, error }] =
+    useCreateChannelMutation();
 
   const Navigate = useNavigate();
   const [channelForm, setChannelForm] = useState({
@@ -19,7 +20,6 @@ const CreateChannel = () => {
     description: "",
     image: null,
   });
-  const [error, setError] = useState("");
   const [NameEror, setnameError] = useState({
     isValid: false,
     err: "",
@@ -100,7 +100,7 @@ const CreateChannel = () => {
       if (channelForm.image !== null) {
         formData.append("file", channelForm.image);
       }
-      const result = (await createChannel(formData)) as any | void;
+      (await createChannel(formData)) as any | void;
       if (isSuccess) {
         setChannelForm({
           name: "",
@@ -108,15 +108,13 @@ const CreateChannel = () => {
           image: null,
         });
         Navigate("/");
-      } else {
-        setError(result.error.data.message);
       }
     } else {
       alert("Please Fill the Form");
     }
   };
   return (
-    <section className="w-full h-[120vh] flex justify-center items-center">
+    <section className="w-full h-[140vh] flex justify-center items-center">
       <div className="md:w-[35rem] w-[95%] bg-black rainbow flex flex-col shadow-lg rounded-xl">
         <h2 className="text-center p-4 my-2 font-bold text-6xl text-white">
           Create a Channel
@@ -164,7 +162,7 @@ const CreateChannel = () => {
             handleBlur={handleFocusVideoDes}
             handleFocus={handleBlurDes}
           />
-          {isError && <p className="text-red-400">{error}</p>}
+          {isError && <p className="text-red-400">Please Upload data carefully</p>}
           <button
             className="p-5 bg-blue-600 w-44 h-16 rounded-lg focus:ring-1 hover:bg-blue-800 hover:text-white/60"
             type="submit"

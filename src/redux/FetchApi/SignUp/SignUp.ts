@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { ResultSignUp, SignUpRequest } from "../../../vite-env";
 
 export const SignUp = createApi({
   reducerPath: "SignUp", // Should match your store configuration

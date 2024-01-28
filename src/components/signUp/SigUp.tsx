@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Input from "../input/Input";
 import {
   validateName,
@@ -11,8 +11,7 @@ import { SigUpProps, SignUpRequest } from "../../vite-env";
 
 export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
   const [passwordDisplay, setPasswordDisplay] = useState(false);
-  const [Error, setShowError] = useState("");
-  const [register] = useRegisterMutation();
+  const [register, { isError, error: SignUpError, isSuccess }] = useRegisterMutation();
   const Navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -86,13 +85,17 @@ export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
         email: form.email,
         password: form.password,
       };
-      // console.log(signUp)
+      register(signUp);
+    } else {
+      alert("Please Fill the Field correctly");
+    }
+  };
+  // console.log(isSuccess);
+  // console.log(data);
 
-      // Make the API request
-      const result = (await register(signUp)) as any;
-      console.log(result);
-
-      if (result.status === 201) {
+  const CheckAccount = useCallback(() => {
+    console.log(isSuccess)
+    if (isSuccess) {
         console.log("User is created");
         setForm({
           name: "",
@@ -100,15 +103,13 @@ export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
           password: "",
         });
         Navigate("/SignIn");
-      } else {
-        // console.log(result.error.data.message);
-        handleError(result.error.data.message, result.status);
-        setShowError(result.error.data.message);
-      }
-    } else {
-      alert("Please Fill the Field correctly");
+      // }
     }
-  };
+  }, [setForm, Navigate, isSuccess]);
+
+  useEffect(() => {
+    CheckAccount();
+  }, [isSuccess, CheckAccount]);
 
   return (
     <section className="w-full h-screen flex justify-center items-center">
@@ -160,8 +161,8 @@ export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
             handlePasswordDisplay={handlePasswordDisplay}
             placeholder="Enter your password"
           />
-          {Error.length !== 0 && (
-            <p className="text-red-400 text-sm">{Error}</p>
+          {isError && (
+            <p className="text-red-400 text-sm">{SignUpError?.data.message}</p>
           )}
           <button
             type="submit"

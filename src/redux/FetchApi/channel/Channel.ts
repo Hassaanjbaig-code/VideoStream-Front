@@ -8,6 +8,8 @@ interface tokenImport {
 const token: tokenImport = JSON.parse(
   localStorage.getItem("User Detail") || "{}"
 );
+
+console.log(token)
 export const channel = createApi({
   reducerPath: "channel",
   baseQuery: fetchBaseQuery({

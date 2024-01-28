@@ -25,8 +25,6 @@ const ViewChannelDetial = () => {
       [e.target.name as keyof typeof buttonOption]:
         !buttonOption[e.target.name as keyof typeof buttonOption],
     });
-
-    console.log(buttonOption);
     // console.log("This is add new", ButtonOption.value);
   }
 

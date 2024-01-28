@@ -174,14 +174,14 @@ const ViewScreen = () => {
                   color={clickDisLike ? "#b03030ad" : "#fff"}
                 />
               </button>
-              <button
+              {/* <button
                 type="button"
                 className="w-28 h-14 bg-black/40 rounded-xl flex items-center justify-around"
                 onClick={() => setShare(!clickShare)}
               >
                 <PiShareFatFill size={30} />
                 Share
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="flex flex-col">

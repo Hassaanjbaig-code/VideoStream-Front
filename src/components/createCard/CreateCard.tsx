@@ -211,6 +211,7 @@ const CreateCard = () => {
             <input
               name="image"
               type="file"
+              accept="image/*"
               onBlur={handleImageBlue}
               onChange={handleChangeImageVideo}
               // onFocus={handleFocus}
@@ -228,6 +229,7 @@ const CreateCard = () => {
             <input
               name="video"
               type="file"
+              accept="video/*"
               onBlur={handleVideoBlue}
               onChange={handleChangeImageVideo}
               // onFocus={handleFocus}

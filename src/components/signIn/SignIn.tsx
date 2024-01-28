@@ -18,7 +18,7 @@ import { user } from "../input/Auth";
 const SignIn = () => {
   let navigation = useNavigate();
   const [passwordDisplay, setPasswordDisplay] = useState(false);
-  const [logIn] = useLogInMutation();
+  const [logIn ] = useLogInMutation();
   const [showError, setShowError] = useState("");
   const [form, setForm] = useState({
     email: "",
@@ -83,7 +83,6 @@ const SignIn = () => {
         email: form.email,
         password: form.password,
       };
-      console.log(signIn);
       const response = await logIn(signIn);
 
       if ("data" in response) {
