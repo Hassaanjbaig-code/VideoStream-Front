@@ -83,6 +83,14 @@ type CustomResponseSignInError = {
   };
 };
 
+type QueryState<TData, TError> = {
+  data?: TData;
+  error?: TError;
+  status: QueryStatus;
+};
+
+type SignInQueryState = QueryState<CustomResponseSignIn['data'], CustomResponseSignInError['data']>;
+
 type ResultSignUp = {
   message: string;
 };

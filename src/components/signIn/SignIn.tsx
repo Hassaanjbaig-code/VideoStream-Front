@@ -97,7 +97,7 @@ const SignIn = () => {
           if (result.data.channel.status == 404) {
             navigation("/createChannel")
           } else {
-            user.value = localStorage.getItem("User Detail")
+            user.value = store
             navigation("/");
           }
         }
@@ -118,7 +118,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="w-full h-screen flex justify-center items-center">
+    <section className="w-full h-[140vh] flex justify-center items-center">
       <div className="md:w-[35rem] w-[95%] bg-black rainbow flex flex-col">
         <h2 className="text-center my-3 font-bold text-6xl text-white">
           Sign In

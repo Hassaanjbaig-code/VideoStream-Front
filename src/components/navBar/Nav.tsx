@@ -1,14 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
-import { isLoggedIn, user } from "../input/Auth";
+import { isLoggedIn, logout } from "../input/Auth";
+
 
 const Nav = () => {
   let navigate = useNavigate();
+  // const logOut = () => {
+  //   localStorage.removeItem("User Detail");
+  //   // storedUserDetail = undefined
+  //   navigate("/");
+  // };
 
-  const logOut = () => {
-    localStorage.removeItem("User Detail");
-    user.value = null
-    navigate("/");
-  };
+  // useEffect(() => {
+  //   console.log(isLoggedIn.value)
+  // }, [isLoggedIn])
+
+  console.log(isLoggedIn.value)
+  
+
+
   return (
     <nav className="w-full h-20 flex justify-between items-center shadow-lg shadow-black">
       <Link to="/">
@@ -22,7 +31,7 @@ const Nav = () => {
             <button
               type="button"
               className="w-32 h-14 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
-              onClick={() => logOut()}
+              onClick={() => logout()}
             >
               Log Out
             </button>
