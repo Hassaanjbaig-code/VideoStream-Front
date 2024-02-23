@@ -42,7 +42,6 @@ const SignIn = () => {
   let PasswordShow = "password";
   const handlePasswordDisplay = () => {
     setPasswordDisplay(!passwordDisplay);
-    console.log(passwordDisplay);
   };
   if (passwordDisplay === true) {
     PasswordShow = "text";
@@ -87,7 +86,6 @@ const SignIn = () => {
 
       if ("data" in response) {
         const result = response as unknown as CustomResponseSignIn;
-        console.log(result);
         if (result.data.status == 200) {
           let store = {
             token: result.data.token,
@@ -119,15 +117,15 @@ const SignIn = () => {
 
   return (
     <section className="w-full h-[140vh] flex justify-center items-center">
-      <div className="md:w-[35rem] w-[95%] bg-black rainbow flex flex-col">
+      <div className="md:w-[35rem] w-[95%] bg-black md:rainbow flex flex-col p-3 rounded-lg">
         <h2 className="text-center my-3 font-bold text-6xl text-white">
           Sign In
         </h2>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-7 my-20 md:items-center justify-center"
+          className="flex flex-col gap-7 my-20 items-center justify-center"
         >
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 max-md:w-[95%]">
             <label>
               Email{" "}
               {error.isValid && (
@@ -141,7 +139,7 @@ const SignIn = () => {
               onBlur={handleBlurEmail}
               onChange={handleFormChange}
               placeholder="Enter Email"
-              className="bg-white/50 focus:bg-white h-16 text-lg rounded-lg md:w-[29rem] w-full p-5 focus:ring text-black"
+              className="bg-white/50 focus:bg-white w-full h-16 text-lg rounded-lg md:w-[29rem] p-5 focus:ring text-black"
             />
           </div>
           <Input
@@ -157,8 +155,7 @@ const SignIn = () => {
             handleBlur={handleBlurPassword}
             handleFocus={handleFocus}
             handlePasswordDisplay={handlePasswordDisplay}
-            placeholder="Enter your password"
-          />
+            placeholder="Enter your password" classeWraper={null} divClassName=""  />
           <h2 className="text-xl text-red-500">{showError}</h2>
           <button
             type="submit"

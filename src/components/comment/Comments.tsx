@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useAddCommentMutation } from "../../redux/FetchApi/VideoFetch/Video";
+import { Comment } from "../../vite-env";
 
 interface PropComments {
   totalComment: number | undefined;
-  videoID: String;
+  videoID: string | undefined;
 }
 
 const Comments = ({ totalComment, videoID }: PropComments) => {
@@ -11,9 +12,9 @@ const Comments = ({ totalComment, videoID }: PropComments) => {
   const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComments(e.target.value);
   };
-  const [addComment] = useAddCommentMutation();
+  const [addComment ] = useAddCommentMutation();
 
-  const Postcomment = {
+  const Postcomment: Comment = {
     id: videoID,
     commentData: {
       comment: comments,
@@ -24,10 +25,7 @@ const Comments = ({ totalComment, videoID }: PropComments) => {
   async function comment() {
     try {
       console.log(Postcomment);
-      const response = await addComment(Postcomment);
-      if (response) {
-        console.log(response);
-      }
+      await addComment(Postcomment);
     } catch (error) {
       console.log(error);
       // Handle any errors here

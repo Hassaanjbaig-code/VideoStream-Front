@@ -13,7 +13,7 @@ const Home = () => {
           <p>Please sign in and Add a video</p>
         </div>
       )} */}
-      <ul className="flex flex-wrap justify-between h-full my-5">
+      <ul className="flex flex-wrap h-full my-5">
         {isLoading ? (
           <h4>Loading ...</h4>
         ) : (

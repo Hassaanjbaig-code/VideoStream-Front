@@ -254,7 +254,7 @@ interface Like {
 interface likeRequest {
   data: {
     status: number;
-    message: string;
+    message: number;
   };
 }
 
@@ -266,7 +266,7 @@ interface commentlike {
 interface Subscriberstype {
   data: {
     status: number;
-    message: string;
+    message: number;
   };
 }
 
@@ -317,7 +317,7 @@ type VideoData = {
 };
 
 interface Comment {
-  id: string;
+  id: string | undefined;
   commentData: {
     comment: string;
   };

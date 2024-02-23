@@ -14,12 +14,12 @@ import ShowComment from "../comment/ShowComment";
 import SideCard from "../sideCard/SideCard";
 import Video from "./Video";
 import SHare from "./SHare";
-import { signal } from "@preact/signals-react";
 
 const ViewScreen = () => {
   const { id } = useParams();
-  const [clickLike, setLike] = useState(false);
-  const [clickDisLike, setDisLike] = useState(false);
+  // const [clickLike, setLike] = useState(false);
+  let clickLike = false;
+  const [clickDisLike, setDisLike] = React.useState(false);
   const [clickSubscribe, setSubscribe] = useState(false);
   const [clickShare, setShare] = useState(false);
   // let chicklikes = signal(false)
@@ -27,40 +27,38 @@ const ViewScreen = () => {
   const token: tokenImport = JSON.parse(
     localStorage.getItem("User Detail") || "{}"
   );
-  console.log(token.channel.message);
 
-  const [addLike] = useAddLikeMutation();
+  const [addLike, { isSuccess: LikeSuccess, data: Liked }] =
+    useAddLikeMutation();
   const [addDisLike] = useAddDisLikeMutation();
   const [addSubecribe] = useAddSubecribeMutation();
 
   // Check if id is defined before making the query
   // const { isLoading, data } = id ? useShowVideoQuery(String(id)) : { isLoading: false, data: undefined };
   const { isLoading, data } = useShowVideoQuery(String(id));
-  //   // console.log(data?.subscribe)
-  // console.log(data?.Like)
-  // console.log(token.channel)
-  console.log(data);
   // const { isSuccess, error } = useAddLikeQuery(;
 
   // console.log(data);
 
-  useEffect(() => {
-    data?.Like.map((LikeData) => {
-      if (LikeData.channel == token.channel.message) {
-        setLike(true);
-      } else {
-        setLike(false);
-      }
-    });
+  // useEffect(() => {
+  //   data?.Like.map((LikeData) => {
+  //     if (LikeData.channel == token.channel.message) {
+  //       // setLike(true);
+  //       clickLike = true
+  //     } else {
+  //       // setLike(false);
+  //       clickLike = false
+  //     }
+  //   });
 
-    data?.subscribe.map((subScribe) => {
-      setSubscribe(subScribe.mainChannel == token.channel.message);
-    });
+  //   data?.subscribe.map((subScribe) => {
+  //     setSubscribe(subScribe.mainChannel == token.channel.message);
+  //   });
 
-    data?.DisLike.map((disLikes) => {
-      setDisLike(disLikes.channel == token.channel.message);
-    });
-  }, [data, token]);
+  //   data?.DisLike.map((disLikes) => {
+  //     setDisLike(disLikes.channel == token.channel.message);
+  //   });
+  // }, [data, token]);
 
   if (isLoading) {
     return <h1>Loading ...</h1>;
@@ -98,11 +96,15 @@ const ViewScreen = () => {
   }
 
   const HandleLike: React.MouseEventHandler<HTMLButtonElement> = async () => {
-    const response = await addLike(String(data?.data._id));
-    console.log(response);
-    const likeData = response.data as likeRequest;
-    if (likeData) {
-      setLike(!clickLike);
+    await addLike(String(data?.data._id));
+    if (LikeSuccess) {
+      if (Liked?.data.message == 200) {
+        clickLike = true;
+      } else {
+        clickLike = false;
+      }
+    } else {
+      console.error("Server issue");
     }
   };
   // const HandleDisLike: React.MouseEventHandler<HTMLButtonElement> = async () => {

@@ -14,9 +14,9 @@ const Footer = () => {
   return (
     <>
       {isLoggedIn.value && (
-        <section className="w-full h-14 fixed bottom-0 bg-black/20 ">
+        <section className="w-full h-14 fixed bottom-0 bg-black/60  ">
           <nav className="w-full">
-            <ul className="flex w-full justify-around items-centerh-full my-4">
+            <ul className="flex w-full justify-around items-center h-full my-4">
               {Navbar.map((nav) => (
                 <li key={nav.id}>
                   <Link to={nav.path}>{nav.name}</Link>

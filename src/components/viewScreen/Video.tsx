@@ -96,12 +96,12 @@ const Video: React.FC<{ props: VideoProps }> = ({ props }) => {
       // If FullScreen is false and the video exists, request fullscreen
       if (video.requestFullscreen) {
         video.requestFullscreen();
-      } else if (video.msRequestFullscreen) {
+      } else if (video.requestFullscreen) {
         /* IE/Edge */
-        video.msRequestFullscreen();
+        video.requestFullscreen();
       } else if (document.documentElement.mozFullScreenEnabled) {
         /* Firefox */
-        video.mozRequestFullScreen();
+        video.requestFullscreen();
       }
 
       setFullScreen(true); // Toggle FullScreen state to true
@@ -109,9 +109,9 @@ const Video: React.FC<{ props: VideoProps }> = ({ props }) => {
       // Handle exiting fullscreen mode
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (document.msExitFullscreen) {
+      } else if (document.exitFullscreen) {
         /* IE/Edge */
-        document.msExitFullscreen();
+        document.exitFullscreen();
       } else if (document.mozCancelFullScreen) {
         /* Firefox */
         document.mozCancelFullScreen();

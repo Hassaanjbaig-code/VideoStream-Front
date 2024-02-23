@@ -5,10 +5,6 @@ interface sign {
         channel: { status: Number; message: String };
 }
 
-interface signOut {
-    
-}
-
 // Function to update the user signal
 
 const storedUserDetail = localStorage.getItem("User Detail");
@@ -21,7 +17,6 @@ const parsedUserDetail: sign = storedUserDetail
 export const user = signal<sign | undefined>(parsedUserDetail);
 
 export const updateUser = (newUserDetail: undefined) => {
-  console.log(newUserDetail);
   user.value = newUserDetail;
 };
 

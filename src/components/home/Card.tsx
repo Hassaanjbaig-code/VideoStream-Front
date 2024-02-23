@@ -22,7 +22,7 @@ const Card = ({ VideoData }: {  VideoData: HomeVideo }) => {
 
   return (
     <li key={Video._id} className="my-2 mx-1" id={Video._id}>
-      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-96">
+      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-96 h-80">
         <video
           src={Video.video}
           width={380}
@@ -32,7 +32,7 @@ const Card = ({ VideoData }: {  VideoData: HomeVideo }) => {
           onMouseLeave={handlePause}
           poster={Video.image}
           preload="auto"
-          className="rounded-lg object-cover"
+          className="rounded-lg object-fill w-full h-full"
           muted
         />
         <div className="flex gap-6 items-center">

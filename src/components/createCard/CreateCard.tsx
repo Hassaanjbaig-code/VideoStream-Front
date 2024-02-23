@@ -45,8 +45,8 @@ const CreateCard = () => {
 
   const [showError, setShowError] = useState({
     error: false,
-    mss: ""
-  })
+    mss: "",
+  });
 
   const handleChangeImageVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(e.target.files?.[0] || null)
@@ -137,7 +137,7 @@ const CreateCard = () => {
       // Dispatch the mutation with the created object
 
       const result = (await addVideo(formData)) as any | void;
-      console.log(result)
+      console.log(result);
       if (result.data.status === 200) {
         setVideoForm({
           title: "",
@@ -149,29 +149,29 @@ const CreateCard = () => {
       } else {
         setShowError({
           error: true,
-          mss: result.data.message
-        })
+          mss: result.data.message,
+        });
         console.log(result);
         // handleError(result.error.data.message, result.status)
       }
     } else {
       setShowError({
         error: true,
-        mss: "Please Fill the Field correctly"
-      })
+        mss: "Please Fill the Field correctly",
+      });
     }
   };
 
   if (isLoading) {
     return (
       <div className="w-full h-screen flex justify-center items-center">
-        <AiOutlineLoading style={{ transform: 'rotate(90deg)' }} size={30} />
+        <AiOutlineLoading style={{ transform: "rotate(90deg)" }} size={30} />
       </div>
     );
   }
   return (
-    <section className="w-full h-[150vh] flex justify-center items-center">
-      <div className="w-[35rem] bg-black rainbow flex flex-col shadow-lg rounded-xl">
+    <section className="w-full md:h-[170vh] h-[112vh] flex justify-center items-center">
+      <div className="w-[25rem] md:w-[35rem] h-[86%] bg-black md:rainbow flex flex-col shadow-lg rounded-xl">
         <h2 className="text-center my-3 font-bold text-6xl text-white">
           Add a Video
         </h2>
@@ -190,6 +190,8 @@ const CreateCard = () => {
             handleFocus={handleFocusVideo}
             handleBlur={handleBlurTitle}
             passwordChecker={false}
+            divClassName="max-md:item-center"
+            classeWraper=""
           />
           <TextArea
             placeholder="Enter Description"
@@ -201,7 +203,7 @@ const CreateCard = () => {
             handleBlur={handleBlurDes}
             handleFocus={handleFocusVideoDes}
           />
-          <div className="flex flex-col gap-2 relative md:w-[29rem] w-full">
+          <div className="flex flex-col gap-2 relative md:w-[29rem] w-[95%] items-center">
             <label className="w-full">
               Add Image{" "}
               {ImageCheck.isValid && (
@@ -216,10 +218,10 @@ const CreateCard = () => {
               onChange={handleChangeImageVideo}
               // onFocus={handleFocus}
               placeholder="Add a Image"
-              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black`}
+              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black w-full md:p-5`}
             />
           </div>
-          <div className="flex flex-col gap-2 relative md:w-[29rem] w-full">
+          <div className="flex flex-col gap-2 relative md:w-[29rem] w-[95%] items-center">
             <label className="w-full">
               Add Video{" "}
               {VideoCheck.isValid && (
@@ -234,7 +236,7 @@ const CreateCard = () => {
               onChange={handleChangeImageVideo}
               // onFocus={handleFocus}
               placeholder="Add a Image"
-              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black`}
+              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black w-full md:p-5`}
             />
           </div>
           {showError.error && (

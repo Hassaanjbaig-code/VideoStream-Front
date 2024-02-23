@@ -29,7 +29,7 @@ const TextArea = ({
   placeholder,
 }: InputProps) => {
   return (
-    <div className="flex flex-col gap-2 relative md:w-[29rem] w-full">
+    <div className="flex flex-col gap-2 relative md:w-[29rem] items-center w-[95%]">
       <label className="w-full">
         {label}{" "}
         {error.isValid && <span className="text-red-500">{error.err}</span>}
@@ -41,7 +41,7 @@ const TextArea = ({
         onBlur={handleBlur}
         onChange={handleForm}
         onFocus={handleFocus}
-        className={`bg-white/50 focus:bg-white h-52 text-lg rounded-lg p-5 focus:ring text-black ${classeWraper}`}
+        className={`bg-white/50 focus:bg-white h-52 text-lg rounded-lg w-full md:p-5 p-4 focus:ring text-black ${classeWraper}`}
       />
     </div>
   );

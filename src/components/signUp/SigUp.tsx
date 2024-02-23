@@ -94,9 +94,7 @@ export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
   // console.log(data);
 
   const CheckAccount = useCallback(() => {
-    console.log(isSuccess)
     if (isSuccess) {
-        console.log("User is created");
         setForm({
           name: "",
           email: "",

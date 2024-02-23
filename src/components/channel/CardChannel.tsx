@@ -39,7 +39,7 @@ const CardChannel = ({ Video }: { Video: Video }) => {
   };
   return (
     <li id={Video?._id} className="mx-2 flex flex-col gap-3">
-      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-60">
+      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-60 h-36">
         <video
           src={Video.video}
           width={380}
@@ -49,7 +49,7 @@ const CardChannel = ({ Video }: { Video: Video }) => {
           onMouseLeave={handlePause}
           poster={Video.image}
           preload="auto"
-          className="rounded-lg object-cover"
+          className="rounded-lg object-fill h-full w-full"
           muted
         />
       </Link>
@@ -63,10 +63,10 @@ const CardChannel = ({ Video }: { Video: Video }) => {
               {Video.title}
             </h3>
             {DeleteClick && (
-              <div className="z-50 bg-gray-500 absolute right-0 bottom-12 w-32 h-16 flex text-center justify-center">
+              <div className="z-50 bg-[#424b55de] absolute right-0 bottom-12 w-32 h-16 flex text-center justify-center rounded-lg">
                 <button
                   type="button"
-                  className="py-2 px-1 hover:bg-gray-800 w-full h-full"
+                  className="py-2 px-1 hover:bg-gray-800 w-full h-full font-bold font-sans text-2xl"
                   onClick={() => handleDelete(Video._id)}
                 >
                   Delete

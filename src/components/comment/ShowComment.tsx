@@ -8,18 +8,14 @@ import {
 } from "../../redux/FetchApi/VideoFetch/Video";
 import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { CiMenuKebab } from "react-icons/ci";
-interface id {
-  id: {
-    id: String | undefined;
-  };
-}
+
 
 interface tokenImport {
   token: string;
   channel: string;
 }
 
-const ShowComment = ({ id }: id) => {
+const ShowComment = ( id : string | undefined ) => {
   // console.log(id);
 
   // const [commentData, setCommentData] = useState<{}>({});
