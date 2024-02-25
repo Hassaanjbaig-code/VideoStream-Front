@@ -135,8 +135,8 @@ const Video: React.FC<{ props: VideoProps }> = ({ props }) => {
   }
 
   return (
-    <div
-      className="relative h-fit flex justify-center items-center"
+    <section
+      className="relative h-[30rem] flex justify-center items-center "
       onClick={handlePlayPause}
     >
       <video
@@ -145,79 +145,81 @@ const Video: React.FC<{ props: VideoProps }> = ({ props }) => {
         src={playVideo}
         poster={image}
         autoPlay
-        className="object-cover w-full rounded-xl relative"
+        className="object-fill h-full w-full rounded-xl relative"
       />
-      <ul className="absolute left-0 bottom-3 z-30 flex w-full items-center justify-around">
-        <li>
-          <p className="text-[#ffff] text-[12px] w-20 xl:font-medium  max-sm:w-20">
-            <span>{currentTime}</span> / <span>{duration}</span>
-          </p>
-        </li>
-        <li
-          className="md:w-[70%] w-[49%] rounded-full h-2 cursor-pointer bg-gray-300"
-          onClick={handleProgressBarClick}
-        >
-          <div
-            className="h-2 bg-[#E72020] rounded-full"
-            style={{ width: `${progress}%` }}
-            onClick={handleProgressBarClick}
-          ></div>
-        </li>
-        <li className="flex gap-6 mx-2 items-center">
-          <button type="button" onClick={handleVolumeHidden}>
-            {volume !== 0 ? (
-              <PiSpeakerHighDuotone size={20} />
-            ) : (
-              <PiSpeakerNoneDuotone size={20} />
-            )}
-          </button>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            value={volume}
-            onChange={handleVolume}
-            step="0.1"
-            className={`${
-              hiddenVolume ? "block" : "hidden"
-            } transform -rotate-90 origin-left absolute bottom-[14px] ml-3 h-4 w-40`}
-          />
-          <li
-            className={`w-40 h-48 absolute right-[8px] bottom-[43px] border ${
-              setting ? "block" : "hidden"
-            }`}
-          >
-            <ul className="z-10 bg-slate-400 flex flex-col">
-              {Object.keys(speedMapping).map((result, index) => (
-                <li
-                  className={`text-center p-2 hover:bg-orange-300 ${
-                    result == PlayBackSpeed && "bg-orange-600"
-                  }`}
-                  key={index}
-                  onClick={() => changePlaybackSpeed(result)}
-                >
-                  {result}
-                </li>
-              ))}
-            </ul>
+      <aside className="absolute left-0 bottom-3 z-30 w-full controller_animate">
+        <ul className="flex items-center justify-around w-[95%] mx-auto">
+          <li>
+            <p className="text-[#ffff] text-[12px] w-20 xl:font-medium  max-sm:w-20">
+              <span>{currentTime}</span> / <span>{duration}</span>
+            </p>
           </li>
-          <button
-            type="button"
-            className="md:w-5 w-3"
-            onClick={() => setSetting(!setting)}
+          <li
+            className="md:w-[70%] w-[49%] rounded-full h-2 cursor-pointer bg-gray-300"
+            onClick={handleProgressBarClick}
           >
-            <AiOutlineSetting size={25} />
-          </button>
-          <button
-            type="button"
-            className="md:w-5 w-3"
-            onClick={handleFullScreen}
-          >
-            <BsFullscreen size={20} />
-          </button>
-        </li>
-      </ul>
-    </div>
+            <div
+              className="h-2 bg-[#E72020] rounded-full"
+              style={{ width: `${progress}%` }}
+              onClick={handleProgressBarClick}
+            ></div>
+          </li>
+          <li className="flex gap-6 mx-2 items-center">
+            <button type="button" onClick={handleVolumeHidden}>
+              {volume !== 0 ? (
+                <PiSpeakerHighDuotone size={20} />
+              ) : (
+                <PiSpeakerNoneDuotone size={20} />
+              )}
+            </button>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              value={volume}
+              onChange={handleVolume}
+              step="0.1"
+              className={`${
+                hiddenVolume ? "block" : "hidden"
+              } transform -rotate-90 origin-left absolute bottom-[14px] ml-3 h-4 w-40`}
+            />
+            <li
+              className={`w-40 h-48 absolute right-[8px] bottom-[43px] border ${
+                setting ? "block" : "hidden"
+              }`}
+            >
+              <ul className="z-10 bg-slate-400 flex flex-col">
+                {Object.keys(speedMapping).map((result, index) => (
+                  <li
+                    className={`text-center p-2 hover:bg-orange-300 ${
+                      result == PlayBackSpeed && "bg-orange-600"
+                    }`}
+                    key={index}
+                    onClick={() => changePlaybackSpeed(result)}
+                  >
+                    {result}
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <button
+              type="button"
+              className="md:w-5 w-3"
+              onClick={() => setSetting(!setting)}
+            >
+              <AiOutlineSetting size={25} />
+            </button>
+            <button
+              type="button"
+              className="md:w-5 w-3"
+              onClick={handleFullScreen}
+            >
+              <BsFullscreen size={20} />
+            </button>
+          </li>
+        </ul>
+      </aside>
+    </section>
   );
 };
 
