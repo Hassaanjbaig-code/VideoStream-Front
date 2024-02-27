@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  useAddLikeMutation,
   useShowVideoQuery,
-  useAddSubecribeMutation,
-  useAddDisLikeMutation,
 } from "../../redux/FetchApi/VideoFetch/Video";
-import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai";
-import { PiShareFatFill } from "react-icons/pi";
 import Comments from "../comment/Comments";
-import { likeRequest, tokenImport } from "../../vite-env";
 import ShowComment from "../comment/ShowComment";
 import SideCard from "../sideCard/SideCard";
 import Video from "./Video";
-import SHare from "./SHare";
 import IntroVideo from "./IntroVideo";
+import VideoAbout from "./VideoAbout";
 
 const ViewScreen = () => {
   const { id } = useParams();
-  // const [clickLike, setLike] = useState(false);
-  let clickSubscribe = false;
   const { isLoading, data } = useShowVideoQuery(String(id));
   if (isLoading) return <h1>Loading ....</h1>;
   return (
@@ -40,8 +31,18 @@ const ViewScreen = () => {
             Like={data?.like}
             id={data?.data._id}
           />
-
         </div>
+        <VideoAbout
+          View={data?.data.View}
+          description={data?.data.description}
+          key={data?.data._id}
+          createdAt={data?.data.createdAt}
+        />
+        <Comments totalComment={data?.TotalComment} videoID={data?.data._id} />
+        <ShowComment id={data?.data._id} />
+      </section>
+      <section className="w-[30%] max-md:w-full">
+        <SideCard data={data?.sideVideo} />
       </section>
     </main>
   );

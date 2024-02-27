@@ -15,7 +15,11 @@ interface tokenImport {
   channel: string;
 }
 
-const ShowComment = ( id : string | undefined ) => {
+interface ShowComment {
+  id: string | undefined
+}
+
+const ShowComment = ( {id}: ShowComment) => {
   // console.log(id);
 
   // const [commentData, setCommentData] = useState<{}>({});
@@ -35,7 +39,6 @@ const ShowComment = ( id : string | undefined ) => {
   const token: tokenImport = JSON.parse(
     localStorage.getItem("User Detail") || "{}"
   );
-  console.log(commentData);
 
   if (commentDataLoading) {
     return <div>Loading ...</div>;

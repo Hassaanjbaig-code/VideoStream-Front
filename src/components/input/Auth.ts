@@ -18,6 +18,7 @@ export const user = signal<sign | undefined>(parsedUserDetail);
 
 export const updateUser = (newUserDetail: undefined) => {
   user.value = newUserDetail;
+  localStorage.removeItem("User Detail")
 };
 
 export const isLoggedIn = computed(() => {

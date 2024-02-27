@@ -252,10 +252,8 @@ interface Like {
 }
 
 interface likeRequest {
-  data: {
     status: number;
     message: number;
-  };
 }
 
 interface commentlike {
@@ -264,10 +262,8 @@ interface commentlike {
 }
 
 interface Subscriberstype {
-  data: {
     status: number;
-    message: number;
-  };
+    message: number | string;
 }
 
 interface commentDelete {

@@ -1,43 +1,81 @@
 import { AiTwotoneDislike, AiTwotoneLike } from "react-icons/ai";
-import { EventHandlerButton } from "../../hooks/Button";
+import {
+  useAddDisLikeMutation,
+  useAddLikeMutation,
+} from "../../redux/FetchApi/VideoFetch/Video";
+import { useState } from "react";
+import { DislikeClickButton, likeClickButton } from "../../hooks/Button";
 
 interface LikeDis {
-  like: string | number | undefined
+  like: number | undefined;
+  id: string | undefined;
 }
 
-const LikeDisLike = ({ like }: LikeDis) => {
-    let clickLike = false
-    let clickDisLike = false
+const LikeDisLike = ({ like, id }: LikeDis) => {
+  const [clickLike, setClickLike] = useState(false);
+  const [clickDisLike, setClickDisLike] = useState(false);
+
+  let [addLike, { isSuccess: Likesuccess, data: LikeData }] =
+    useAddLikeMutation();
+  const [addDisLike, { data: DisLikeData }] =
+    useAddDisLikeMutation();
+  async function likeAvideo(id: string | undefined) {
+    if (id == undefined) return setClickLike(false);
+    await addLike(id);
+    console.log(Likesuccess)
+    if (Likesuccess) {
+      if (LikeData?.message == 250) {
+        setClickLike(true);
+        likeClickButton.value = true
+      } else {
+        setClickLike(false);
+        likeClickButton.value = false
+      }
+    } else {
+      console.error("Not updated");
+      likeClickButton.value = false
+      setClickLike(false);
+    }
+  }
+  async function DisLikeVideo(id: string | undefined) {
+    if (id == undefined) return setClickDisLike(false);
+    await addDisLike(id);
+    if (DisLikeData?.status !== 500) {
+      if (DisLikeData?.message == 250) {  
+        setClickDisLike(!clickDisLike);
+        DislikeClickButton.value = true
+      } else {
+        setClickDisLike(!clickDisLike);
+        DislikeClickButton.value = false
+      }
+    } else {
+      console.error("Not updated");
+      DislikeClickButton.value = false
+      setClickDisLike(false);
+    }
+  }
   return (
     <div className="flex gap-2">
       <button
         type="button"
         name="Like"
         className="w-24 h-14 bg-black/40 rounded-xl flex items-center justify-around"
-        onClick={e => EventHandlerButton(e.currentTarget.name)}
+        onClick={() => likeAvideo(id)}
       >
-        <AiTwotoneLike size={30} color={clickLike ? "#b03030ad" : "#fff"} />
+        <AiTwotoneLike size={30} color={likeClickButton.value ? "#b03030ad" : "#fff"} />
         <span className="text-lg">{like}</span>
       </button>
       <button
         type="button"
         name="Dislike"
         className="w-[3rem] h-14 bg-black/40 rounded-xl flex items-center justify-around"
-        onClick={(e) => !clickLike && EventHandlerButton(e.currentTarget.name)}
+        onClick={() => !likeClickButton.value && DisLikeVideo(id)}
       >
         <AiTwotoneDislike
           size={30}
-          color={clickDisLike ? "#b03030ad" : "#fff"}
+          color={DislikeClickButton.value ? "#b03030ad" : "#fff"}
         />
       </button>
-      {/* <button
-                type="button"
-                className="w-28 h-14 bg-black/40 rounded-xl flex items-center justify-around"
-                onClick={() => setShare(!clickShare)}
-              >
-                <PiShareFatFill size={30} />
-                Share
-              </button> */}
     </div>
   );
 };

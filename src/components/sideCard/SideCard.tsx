@@ -1,13 +1,11 @@
 import React, { useRef } from "react";
-import { videoAddData } from "../../vite-env";
+import { sideoVideos } from "../../vite-env";
 
-const SideCard = ({
-  data,
-  channelName,
-}: {
-  data: videoAddData;
-  channelName: string;
-}) => {
+interface SideVideo {
+  data: sideoVideos[] | undefined
+}
+
+const SideCard = ({ data }: SideVideo) => {
   const videoref: React.RefObject<HTMLVideoElement> = useRef(null);
   // const [videoPlay, setVideoPplay] = useState(false)
   const handleStart = () => {
@@ -25,27 +23,33 @@ const SideCard = ({
     }
   };
   return (
-    <li className="flex gap-4" key={data._id}>
-      <video
-        className="object-cover w-[60%] rounded-lg"
-        src={data.video}
-        poster={data.image}
-        ref={videoref}
-        onMouseEnter={handleStart}
-        onMouseLeave={handlePause}
-      />
-      <div className="w-[30%] max-md:w-full flexs flex-col gap-3">
-        <h2 className="text-lg my-2 font-sans text-gray-200 font-bold">{data.title}</h2>
-        {/* <div className="flex gap-2"> */}
-          {/* <img src={channelImage} alt="" className="w-10 h-8 rounded-full" /> */}
-          <h2 className="text-gray-500">{channelName}</h2>
-        {/* </div> */}
-        {/* <ul className="text-gray-500 flex gap-3"> */}
-        <p className="text-gray-500">{data.View} Views</p>
-        {/* <li>month</li> */}
-        {/* </ul> */}
-      </div>
-    </li>
+    <ul className="w-full flex flex-col gap-3 max-md:mb-16">
+      {data?.map((result) => (
+        <li className="flex gap-4" key={result.video._id}>
+          <video
+            className="object-fill w-[60%] h-32 rounded-lg"
+            src={result.video.video}
+            poster={result.video.image}
+            ref={videoref}
+            onMouseEnter={handleStart}
+            onMouseLeave={handlePause}
+          />
+          <div className="w-[30%] max-md:w-full flexs flex-col gap-3">
+            <h2 className="text-lg my-2 font-sans text-gray-200 font-bold">
+              {result.video.title}
+            </h2>
+            {/* <div className="flex gap-2"> */}
+            {/* <img src={channelImage} alt="" className="w-10 h-8 rounded-full" /> */}
+            <h2 className="text-gray-500">{result.channelName}</h2>
+            {/* </div> */}
+            {/* <ul className="text-gray-500 flex gap-3"> */}
+            <p className="text-gray-500">{result.video.View} Views</p>
+            {/* <li>month</li> */}
+            {/* </ul> */}
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 

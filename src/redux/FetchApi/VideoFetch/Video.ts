@@ -19,8 +19,6 @@ const token: tokenImport = JSON.parse(
   localStorage.getItem("User Detail") || "{}"
 );
 
-console.log(token)
-
 // console.log(token.token)
 
 // const tokenJson: tokenImport = JSON.parse(token)
@@ -68,7 +66,7 @@ export const FetchVideo = createApi({
       // You can specify the expected return type (void in this example)
       invalidatesTags: ["showVideo"],
     }),
-    addSubecribe: builder.mutation<Subscriberstype, string>({
+    addSubscribe: builder.mutation<Subscriberstype, string>({
       query: (id) => ({
         url: `/subscribe/${id}`,
         method: "GET",
@@ -117,7 +115,7 @@ export const {
   useAddVideoMutation,
   useShowVideoQuery,
   useAddLikeMutation,
-  useAddSubecribeMutation,
+  useAddSubscribeMutation,
   useAddDisLikeMutation,
   useAddCommentMutation,
   useShowCommentQuery,
