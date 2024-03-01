@@ -12,7 +12,7 @@ const Comments = ({ totalComment, videoID }: PropComments) => {
   const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComments(e.target.value);
   };
-  const [addComment ] = useAddCommentMutation();
+  const [addComment, { isSuccess } ] = useAddCommentMutation();
 
   const Postcomment: Comment = {
     id: videoID,
@@ -24,8 +24,10 @@ const Comments = ({ totalComment, videoID }: PropComments) => {
 
   async function comment() {
     try {
-      console.log(Postcomment);
       await addComment(Postcomment);
+      if(isSuccess){
+        setComments("")
+      }
     } catch (error) {
       console.log(error);
       // Handle any errors here
@@ -52,7 +54,7 @@ const Comments = ({ totalComment, videoID }: PropComments) => {
         />
         <input
           type="text"
-          className="border-b-2 bg-transparent w-4/6 text-lg p-3"
+          className="border-b-2 bg-transparent w-4/6 text-lg p-3 outline-none"
           placeholder="Add a comment"
           onChange={handleChangeComment}
           onKeyDown={handleKeyDown}

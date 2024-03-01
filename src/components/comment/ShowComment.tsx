@@ -20,14 +20,7 @@ interface ShowComment {
 }
 
 const ShowComment = ( {id}: ShowComment) => {
-  // console.log(id);
-
-  // const [commentData, setCommentData] = useState<{}>({});
-  // const [orginalComment, setOriginalComment] = useState({
-  //   id: ""
-  // })
-  // const [commentDataLoading, setCommentLoading] = useState(true);
-  // const [commentLike, setCommentLike] = useState([])
+  console.log(id);
   const [commentEdit, setCommentEdit] = useState(false);
   const [addLikeComment] = useAddLikeCommentMutation();
   const [addDisLikeComment] = useAddDisLikeCommentMutation();

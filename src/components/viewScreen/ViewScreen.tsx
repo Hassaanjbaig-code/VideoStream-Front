@@ -8,21 +8,27 @@ import SideCard from "../sideCard/SideCard";
 import Video from "./Video";
 import IntroVideo from "./IntroVideo";
 import VideoAbout from "./VideoAbout";
+import { useEffect } from "react";
+import { Check } from "../../hooks/Button";
 
 const ViewScreen = () => {
   const { id } = useParams();
   const { isLoading, data } = useShowVideoQuery(String(id));
   if (isLoading) return <h1>Loading ....</h1>;
+  // useEffect(() => {
+  //   return Check(data);
+  // }, [data])
+  Check(data)
   return (
-    <main
-      className="flex gap-2 my-5 min-h-screen max-h-full md:ml-3 max-md:flex-col"
+    <section
+      className="flex gap-2 my-5 pb-16 min-h-screen max-h-full md:ml-3 max-md:flex-col"
       key={data?.data._id}
     >
       <section className="md:w-[70%]">
         <Video
           props={{ playVideo: data?.data.video, image: data?.data.image }}
         />
-        <div className="flex flex-col mx-5 my-7">
+        <div className="flex flex-col my-5">
           <IntroVideo
             title={data?.data.title}
             image={data?.channel.image}
@@ -44,7 +50,7 @@ const ViewScreen = () => {
       <section className="w-[30%] max-md:w-full">
         <SideCard data={data?.sideVideo} />
       </section>
-    </main>
+    </section>
   );
 };
 

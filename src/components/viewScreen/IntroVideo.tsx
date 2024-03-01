@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { EventHandlerButton } from "../../hooks/Button";
 import { useAddSubscribeMutation } from "../../redux/FetchApi/VideoFetch/Video";
 import LikeDisLike from "./LikeDisLike";
+import { SubscribeClickButton } from "../../hooks/Button";
 
 interface VideoIntro {
   title: string | undefined;
@@ -13,25 +12,13 @@ interface VideoIntro {
 }
 
 const IntroVideo = ({ title, image, name, view, Like, id }: VideoIntro) => {
-  const [addSubscribe, { isSuccess: SubscribeSuccess, data: SubscribeData }] =
-    useAddSubscribeMutation();
-    const [clickSubscribe, setCLickSubscribe] = useState(false)
+  const [addSubscribe] = useAddSubscribeMutation();
 
-    async function AddSubscribe(id: string | undefined) {
-      if(id == undefined) return setCLickSubscribe(false)
-      let data = await addSubscribe(id)
-    console.log(data)
-      if(SubscribeSuccess){
-        if (SubscribeData?.status == 200) {
-          setCLickSubscribe(true)
-        } else {
-          setCLickSubscribe(false)
-        }
-      } else {
-        setCLickSubscribe(false)
-        console.error("Issue in the subscribe")
-      }
-    }
+  async function AddSubscribe(id: string | undefined) {
+    if (id == undefined) return (SubscribeClickButton.value = false);
+    let data = await addSubscribe(id);
+    console.log("This is the subscribe data", data);
+  }
   return (
     <>
       <h2 className="text-xl font-bold ">{title}</h2>
@@ -47,12 +34,9 @@ const IntroVideo = ({ title, image, name, view, Like, id }: VideoIntro) => {
           <button
             type="button"
             name="Subscribe"
-            onClick={() =>
-              AddSubscribe(id)
-            }
-            // onClick={() => addSubecribe(String(data?.data.channel))}
+            onClick={() => AddSubscribe(id)}
             className={`md:w-36 w-24 h-16 text-black rounded-3xl md:text-xl text-sm hover:bg-red-500 ${
-              clickSubscribe ? "bg-red-600" : "bg-white"
+              SubscribeClickButton.value ? "bg-red-600" : "bg-white"
             }`}
           >
             Subscribe

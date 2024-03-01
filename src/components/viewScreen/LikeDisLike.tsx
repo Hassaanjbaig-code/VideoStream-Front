@@ -12,47 +12,46 @@ interface LikeDis {
 }
 
 const LikeDisLike = ({ like, id }: LikeDis) => {
-  const [clickLike, setClickLike] = useState(false);
-  const [clickDisLike, setClickDisLike] = useState(false);
 
-  let [addLike, { isSuccess: Likesuccess, data: LikeData }] =
+  let [addLike ] =
     useAddLikeMutation();
-  const [addDisLike, { data: DisLikeData }] =
+  const [addDisLike ] =
     useAddDisLikeMutation();
   async function likeAvideo(id: string | undefined) {
-    if (id == undefined) return setClickLike(false);
+    if (id == undefined) return likeClickButton.value = false;
     await addLike(id);
-    console.log(Likesuccess)
-    if (Likesuccess) {
-      if (LikeData?.message == 250) {
-        setClickLike(true);
-        likeClickButton.value = true
-      } else {
-        setClickLike(false);
-        likeClickButton.value = false
-      }
-    } else {
-      console.error("Not updated");
-      likeClickButton.value = false
-      setClickLike(false);
-    }
+    // console.log(LikeData)
+    // console.log(Likesuccess)
+    // if (Likesuccess) {
+    //   if (LikeData?.message == 250) {
+    //     setClickLike(true);
+    //     likeClickButton.value = true
+    //   } else {
+    //     setClickLike(false);
+    //     likeClickButton.value = false
+    //   }
+    // } else {
+    //   console.error("Not updated");
+    //   likeClickButton.value = false
+    //   setClickLike(false);
+    // }
   }
   async function DisLikeVideo(id: string | undefined) {
-    if (id == undefined) return setClickDisLike(false);
+    if (id == undefined) return DislikeClickButton.value = false;
     await addDisLike(id);
-    if (DisLikeData?.status !== 500) {
-      if (DisLikeData?.message == 250) {  
-        setClickDisLike(!clickDisLike);
-        DislikeClickButton.value = true
-      } else {
-        setClickDisLike(!clickDisLike);
-        DislikeClickButton.value = false
-      }
-    } else {
-      console.error("Not updated");
-      DislikeClickButton.value = false
-      setClickDisLike(false);
-    }
+    // if (DisLikeData?.status !== 500) {
+    //   if (DisLikeData?.message == 250) {  
+    //     setClickDisLike(!clickDisLike);
+    //     DislikeClickButton.value = true
+    //   } else {
+    //     setClickDisLike(!clickDisLike);
+    //     DislikeClickButton.value = false
+    //   }
+    // } else {
+    //   console.error("Not updated");
+    //   DislikeClickButton.value = false
+    //   setClickDisLike(false);
+    // }
   }
   return (
     <div className="flex gap-2">

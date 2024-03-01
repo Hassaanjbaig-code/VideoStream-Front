@@ -285,9 +285,7 @@ interface HomeVideo {
         _id: string;
         name: string;
         image: string;
-        // Add other channel properties here
       };
-      // Add other video properties here
   };
 }
 
