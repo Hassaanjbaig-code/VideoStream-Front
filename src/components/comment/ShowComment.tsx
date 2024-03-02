@@ -8,7 +8,7 @@ import {
 } from "../../redux/FetchApi/VideoFetch/Video";
 import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { CiMenuKebab } from "react-icons/ci";
-
+import ReactLoading from "react-loading"
 
 interface tokenImport {
   token: string;
@@ -16,25 +16,28 @@ interface tokenImport {
 }
 
 interface ShowComment {
-  id: string | undefined
+  id: string | undefined;
 }
 
-const ShowComment = ( {id}: ShowComment) => {
-  console.log(id);
+const ShowComment = ({ id }: ShowComment) => {
   const [commentEdit, setCommentEdit] = useState(false);
   const [addLikeComment] = useAddLikeCommentMutation();
   const [addDisLikeComment] = useAddDisLikeCommentMutation();
 
   const { data: commentData, isLoading: commentDataLoading } =
     useShowCommentQuery(String(id));
-  const [ deleteComent, response ] = useDeleteComentMutation()
+  const [deleteComent, response] = useDeleteComentMutation();
 
   const token: tokenImport = JSON.parse(
     localStorage.getItem("User Detail") || "{}"
   );
 
   if (commentDataLoading) {
-    return <div>Loading ...</div>;
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+      </div>
+    );
   }
   const AddLikeComment: React.MouseEventHandler<HTMLButtonElement> = async (
     event
@@ -45,9 +48,7 @@ const ShowComment = ( {id}: ShowComment) => {
       const response = await addLikeComment(String(commentID));
       console.log(response);
       if ("data" in response) {
-        console.log(response.data.status);
         if (response.data.status == 200 || 201) {
-          console.log(response.data.message);
         }
       }
     }
@@ -68,9 +69,10 @@ const ShowComment = ( {id}: ShowComment) => {
     }
   };
 
-  if (response.isLoading) (
-    <div><h4>Loading ...</h4></div>
-  )
+  if (response.isLoading)
+    <div>
+      <h4>Loading ...</h4>
+    </div>;
 
   let buttonComment = ["Delete"];
   return (

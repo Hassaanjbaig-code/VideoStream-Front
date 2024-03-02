@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  useShowVideoQuery,
-} from "../../redux/FetchApi/VideoFetch/Video";
+import { useShowVideoQuery } from "../../redux/FetchApi/VideoFetch/Video";
 import Comments from "../comment/Comments";
 import ShowComment from "../comment/ShowComment";
 import SideCard from "../sideCard/SideCard";
@@ -9,12 +7,18 @@ import Video from "./Video";
 import IntroVideo from "./IntroVideo";
 import VideoAbout from "./VideoAbout";
 import { Check } from "../../hooks/Button";
+import ReactLoading from "react-loading";
 
 const ViewScreen = () => {
   const { id } = useParams();
   const { isLoading, data } = useShowVideoQuery(String(id));
-  if (isLoading) return <h1>Loading ....</h1>;
-  Check(data)
+  if (isLoading)
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+      </div>
+    );
+  Check(data);
   return (
     <section
       className="flex gap-2 mt-5 pb-16 min-h-screen max-h-full md:ml-3 max-md:flex-col"

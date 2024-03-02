@@ -14,17 +14,20 @@ import {
   SignInRequest,
 } from "../../vite-env";
 import { user } from "../input/Auth";
+import { AuthChecker } from "../../hooks/auth";
+import ReactLoading from "react-loading";
 
 const SignIn = () => {
   let navigation = useNavigate();
   const [passwordDisplay, setPasswordDisplay] = useState(false);
-  const [logIn ] = useLogInMutation();
+  const [logIn, { data, error, isLoading, isSuccess }] =
+    useLogInMutation();
   const [showError, setShowError] = useState("");
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState({
+  const [emailError, setError] = useState({
     isValid: false,
     err: "",
   });
@@ -45,7 +48,6 @@ const SignIn = () => {
   };
   if (passwordDisplay === true) {
     PasswordShow = "text";
-    // console.log(PasswordShow)
   } else {
     PasswordShow = "password";
   }
@@ -59,7 +61,7 @@ const SignIn = () => {
   const handleBlurEmail = () => {
     const getError = validationEmail(form.email);
     setError({
-      ...error,
+      ...emailError,
       isValid: getError.isValid,
       err: getError.err,
     });
@@ -77,36 +79,55 @@ const SignIn = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!error.isValid && !passwError.isValid) {
+    if (!emailError.isValid && !passwError.isValid) {
       const signIn: SignInRequest = {
         email: form.email,
         password: form.password,
       };
-      const response = await logIn(signIn);
 
-      if ("data" in response) {
-        const result = response as unknown as CustomResponseSignIn;
-        if (result.data.status == 200) {
+      // try {
+      //   let { data, isSign, isLoading, error } = await AuthChecker(signIn);
+      //   console.log("This is the data coming", data, "This is the error if so", error)
+      //   if (isLoading) {
+      //     setLoading(isLoading);
+      //   } else {
+      //     setLoading(false);
+      //     if (isSign) {
+      //       if (data?.status == 200) {
+      //         if (data?.channel.status == 404) {
+      //           navigation("/createChannel");
+      //         } else {
+      //           user.value = data;
+      //           navigation("/");
+      //         }
+      //       } else {
+      //         setShowError(error?.data.message);
+      //         console.error(error?.data);
+      //       }
+      //     }
+      //   }
+      // } catch (error) {
+      //   console.error(error)
+      // }
+      await logIn(signIn);
+
+      if (isSuccess) {
+        if (data?.status == 200) {
           let store = {
-            token: result.data.token,
-            channel: result.data.channel,
+            token: data?.token,
+            channel: data?.channel,
           };
           localStorage.setItem("User Detail", JSON.stringify(store));
-          if (result.data.channel.status == 404) {
-            navigation("/createChannel")
+          if (data?.channel.status == 404) {
+            navigation("/createChannel");
           } else {
-            user.value = store
+            user.value = store;
             navigation("/");
           }
         }
       } else {
-        // It's an error response
-        const errorResponse = response as {
-          error: CustomResponseSignInError;
-        };
-        // Handle the error case
-        setShowError(errorResponse.error.data.message);
-        console.error("Error:", errorResponse.error.data);
+        setShowError("Email and Password is Incorrect");
+        // console.error(error);
       }
       setForm({
         email: "",
@@ -128,8 +149,8 @@ const SignIn = () => {
           <div className="flex flex-col gap-2 max-md:w-[95%]">
             <label>
               Email{" "}
-              {error.isValid && (
-                <span className="text-red-500">{error.err}</span>
+              {emailError.isValid && (
+                <span className="text-red-500">{emailError.err}</span>
               )}
             </label>
             <input
@@ -148,15 +169,20 @@ const SignIn = () => {
             type={PasswordShow}
             value={form.password}
             passwordChecker={true}
-            // classeWraper=""
             password={passwordDisplay}
             error={passwError}
             handleForm={handleFormChange}
             handleBlur={handleBlurPassword}
             handleFocus={handleFocus}
             handlePasswordDisplay={handlePasswordDisplay}
-            placeholder="Enter your password" classeWraper={null} divClassName=""  />
+            placeholder="Enter your password"
+            classeWraper={null}
+            divClassName=""
+          />
           <h2 className="text-xl text-red-500">{showError}</h2>
+          {isLoading && (
+            <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+          )}
           <button
             type="submit"
             className="bg-white text-black/60 w-32 h-16 text-2xl border-2 hover:border-blue-400 rounded-2xl hover:transition-shadow delay-75 duration-100"

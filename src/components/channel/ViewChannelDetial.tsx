@@ -5,6 +5,7 @@ import CardChannel from "./CardChannel";
 import { ChannelDetail } from "./ChannelDetail";
 import SignAnothe from "./SignAnothe";
 import SwitchAccount from "./SwitchAccount";
+import ReactLoading from "react-loading";
 
 interface ButtonOption {
   AddNew: boolean;
@@ -30,9 +31,9 @@ const ViewChannelDetial = () => {
 
   if (isLoading) {
     return (
-      <h2 className="flex h-screen w-full justify-center items-center">
-        Loading...
-      </h2>
+      <div className="h-screen w-full flex justify-center items-center">
+        <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+      </div>
     );
   }
   return (
