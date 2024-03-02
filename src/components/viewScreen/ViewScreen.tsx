@@ -8,20 +8,16 @@ import SideCard from "../sideCard/SideCard";
 import Video from "./Video";
 import IntroVideo from "./IntroVideo";
 import VideoAbout from "./VideoAbout";
-import { useEffect } from "react";
 import { Check } from "../../hooks/Button";
 
 const ViewScreen = () => {
   const { id } = useParams();
   const { isLoading, data } = useShowVideoQuery(String(id));
   if (isLoading) return <h1>Loading ....</h1>;
-  // useEffect(() => {
-  //   return Check(data);
-  // }, [data])
   Check(data)
   return (
     <section
-      className="flex gap-2 my-5 pb-16 min-h-screen max-h-full md:ml-3 max-md:flex-col"
+      className="flex gap-2 mt-5 pb-16 min-h-screen max-h-full md:ml-3 max-md:flex-col"
       key={data?.data._id}
     >
       <section className="md:w-[70%]">
