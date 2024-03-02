@@ -9,18 +9,15 @@ import { useLogInMutation } from "../../redux/FetchApi/SignIn/SignIn";
 // import { SerializedError } from "@reduxjs/toolkit";
 import Input from "../input/Input";
 import {
-  CustomResponseSignIn,
-  CustomResponseSignInError,
   SignInRequest,
 } from "../../vite-env";
 import { user } from "../input/Auth";
-import { AuthChecker } from "../../hooks/auth";
 import ReactLoading from "react-loading";
 
 const SignIn = () => {
   let navigation = useNavigate();
   const [passwordDisplay, setPasswordDisplay] = useState(false);
-  const [logIn, { data, error, isLoading, isSuccess }] =
+  const [logIn, { data, isLoading, isSuccess }] =
     useLogInMutation();
   const [showError, setShowError] = useState("");
   const [form, setForm] = useState({
@@ -84,31 +81,6 @@ const SignIn = () => {
         email: form.email,
         password: form.password,
       };
-
-      // try {
-      //   let { data, isSign, isLoading, error } = await AuthChecker(signIn);
-      //   console.log("This is the data coming", data, "This is the error if so", error)
-      //   if (isLoading) {
-      //     setLoading(isLoading);
-      //   } else {
-      //     setLoading(false);
-      //     if (isSign) {
-      //       if (data?.status == 200) {
-      //         if (data?.channel.status == 404) {
-      //           navigation("/createChannel");
-      //         } else {
-      //           user.value = data;
-      //           navigation("/");
-      //         }
-      //       } else {
-      //         setShowError(error?.data.message);
-      //         console.error(error?.data);
-      //       }
-      //     }
-      //   }
-      // } catch (error) {
-      //   console.error(error)
-      // }
       await logIn(signIn);
 
       if (isSuccess) {
