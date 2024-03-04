@@ -5,14 +5,19 @@ import {
   validateVideo,
 } from "../../Validation/InputValidation";
 import Input from "../input/Input";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextArea from "../input/textArea";
 import { useAddVideoMutation } from "../../redux/FetchApi/VideoFetch/Video";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai";
+import CompressVideo from "../../hooks/CompressVideo";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { toBlobURL } from "@ffmpeg/util";
 
 const CreateCard = () => {
   const [addVideo, { isLoading, error }] = useAddVideoMutation();
+  const ffmpegRef = useRef(new FFmpeg());
+  const messageRef = useRef(null);
   const Navigate = useNavigate();
   const [videoForm, setVideoForm] = useState({
     title: "",
@@ -137,7 +142,6 @@ const CreateCard = () => {
       // Dispatch the mutation with the created object
 
       const result = (await addVideo(formData)) as any | void;
-      console.log(result);
       if (result.data.status === 200) {
         setVideoForm({
           title: "",
@@ -170,8 +174,8 @@ const CreateCard = () => {
     );
   }
   return (
-    <section className="w-full md:h-[170vh] h-[112vh] flex justify-center items-center">
-      <div className="w-[25rem] md:w-[35rem] h-[86%] bg-black md:rainbow flex flex-col shadow-lg rounded-xl">
+    <section className="w-full md:h-[170vh] h-100% flex justify-center items-center">
+      <div className="w-[25rem] md:w-[35rem] h-[85%] my-12 p-[11px 15px 14px 11px] bg-black md:rainbow flex flex-col shadow-lg rounded-xl">
         <h2 className="text-center my-3 font-bold text-6xl text-white">
           Add a Video
         </h2>
@@ -218,7 +222,10 @@ const CreateCard = () => {
               onChange={handleChangeImageVideo}
               // onFocus={handleFocus}
               placeholder="Add a Image"
-              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black w-full md:p-5`}
+              className={`text-base text-stone-500 file:text-lg w-60
+              file:mr-5 file:p-2 file:rounded-md file:px-3 file:border-none 
+              file:font-medium file:bg-blue-500 hover:file:bg-blue-600 
+              focus:file:bg-blue-800`}
             />
           </div>
           <div className="flex flex-col gap-2 relative md:w-[29rem] w-[95%] items-center">
@@ -236,7 +243,10 @@ const CreateCard = () => {
               onChange={handleChangeImageVideo}
               // onFocus={handleFocus}
               placeholder="Add a Image"
-              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black w-full md:p-5`}
+              className={`text-base text-stone-500 file:text-lg w-60
+              file:mr-5 file:p-2 file:rounded-md file:px-3 file:border-none
+               file:font-medium file:bg-blue-500 hover:file:bg-blue-600
+              focus:file:bg-blue-800`}
             />
           </div>
           {showError.error && (
