@@ -52,3 +52,11 @@
 .controller_animate {
   @apply opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100
 }
+
+html {
+  --cursor-color: #ba9cd9
+}
+
+html.dark-mode {
+  --cursor-color: #fff
+}

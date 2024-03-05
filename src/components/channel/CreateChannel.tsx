@@ -133,8 +133,7 @@ const CreateChannel = () => {
             handleForm={handleFormChange}
             handleBlur={handleBlurName}
             handleFocus={handleFocus}
-            placeholder="Enter your name"
-          />
+            placeholder="Enter your name" classeWraper={null} divClassName={null}          />
           <div className="flex flex-col gap-2 relative md:w-[29rem] w-full">
             <label className="w-full">
               Add Cover Image{" "}
@@ -145,11 +144,15 @@ const CreateChannel = () => {
             <input
               name="image"
               type="file"
+              accept="image/*"
               onBlur={handleBlurImage}
               onChange={handleImage}
               // onFocus={handleFocus}
               placeholder="Add a Cover Image"
-              className={`bg-white/50 focus:bg-white h-16 text-lg rounded-lg p-5 focus:ring text-black`}
+              className={`text-base text-stone-500 file:text-lg w-60
+              file:mr-5 file:p-2 file:rounded-md file:px-3 file:border-none
+               file:font-medium file:bg-blue-500 hover:file:bg-blue-600
+              focus:file:bg-blue-800`}
             />
           </div>
           <TextArea

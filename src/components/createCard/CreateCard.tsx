@@ -174,7 +174,7 @@ const CreateCard = () => {
     );
   }
   return (
-    <section className="w-full md:h-[170vh] h-100% flex justify-center items-center">
+    <section className={`w-full md:h-[170vh] h-100% flex justify-center items-center ${isLoading && "cursor-progress"}`}>
       <div className="w-[25rem] md:w-[35rem] h-[85%] my-12 p-[11px 15px 14px 11px] bg-black md:rainbow flex flex-col shadow-lg rounded-xl">
         <h2 className="text-center my-3 font-bold text-6xl text-white">
           Add a Video

@@ -26,12 +26,11 @@ const ViewChannelDetial = () => {
       [e.target.name as keyof typeof buttonOption]:
         !buttonOption[e.target.name as keyof typeof buttonOption],
     });
-    // console.log("This is add new", ButtonOption.value);
   }
 
   if (isLoading) {
     return (
-      <div className="h-screen w-full flex justify-center items-center">
+      <div className="h-screen w-full flex justify-center items-center cursor-progress">
         <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
       </div>
     );

@@ -11,6 +11,7 @@ import ViewScreen from "./components/viewScreen/ViewScreen";
 import ViewChannelDetial from "./components/channel/ViewChannelDetial";
 import NoAuthPage from "./components/NoAuth/noAuthPage";
 import { isLoggedIn } from "./components/input/Auth";
+import AnimCursor from "./components/channel/AnimCursor";
 const App = () => {
   const [showError, setshowError] = useState({
     error: "",
@@ -26,6 +27,7 @@ const App = () => {
   };
   return (
     <main className="bg-black/80 text-white">
+      <AnimCursor />
       {showError.status !== 0 && (
         <h3
           className={`w-full h-10 flex justify-center items-center ${
@@ -40,9 +42,10 @@ const App = () => {
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SigUp handleError={showingError} />} />
         <Route path="/" element={<Home />} />
-        <Route path="/AddVideo" element={
-          isLoggedIn.value ? <CreateCard /> : <NoAuthPage /> 
-        } />
+        <Route
+          path="/AddVideo"
+          element={isLoggedIn.value ? <CreateCard /> : <NoAuthPage />}
+        />
         <Route path="/createChannel" element={<CreateChannel />} />
         <Route
           path="/channel"

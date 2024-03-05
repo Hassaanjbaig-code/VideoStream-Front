@@ -19,12 +19,10 @@ const CardChannel = ({ Video }: { Video: Video }) => {
   const [DeleteClick, setDeleteCLick] = useState(false);
   const handleButton = () => {
     setDeleteCLick(!DeleteClick);
-    console.log(DeleteClick);
   };
   
 
   function handleDelete(value:string) {
-    console.log(value)
     videoDelete(value)
   }
 
@@ -66,7 +64,7 @@ const CardChannel = ({ Video }: { Video: Video }) => {
               <div className="z-50 bg-[#424b55de] absolute right-0 bottom-12 w-32 h-16 flex text-center justify-center rounded-lg">
                 <button
                   type="button"
-                  className="py-2 px-1 hover:bg-gray-800 w-full h-full font-bold font-sans text-2xl"
+                  className="py-2 px-1 hover:bg-gray-800 w-full h-full font-bold font-sans text-2xl rounded-md"
                   onClick={() => handleDelete(Video._id)}
                 >
                   Delete

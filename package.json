@@ -17,6 +17,7 @@
     "@rest-hooks/rest": "^7.4.4",
     "axios": "^1.6.7",
     "react": "^18.2.0",
+    "react-animated-cursor": "^2.11.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-loading": "^2.0.3",
