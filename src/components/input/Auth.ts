@@ -10,11 +10,13 @@ interface sign {
 const storedUserDetail = localStorage.getItem("User Detail");
 
 // Parse the stored user detail or set it to undefined
-const parsedUserDetail: sign = storedUserDetail
+const parsedUserDetail: sign = storedUserDetail !== null
   ? JSON.parse(storedUserDetail)
-  : { signCon: undefined };
+  : undefined 
 
-export const user = signal<sign | undefined>(parsedUserDetail);
+  
+  export const user = signal<sign | undefined>(parsedUserDetail);
+  console.log(user.value)
 
 export const updateUser = (newUserDetail: undefined) => {
   user.value = newUserDetail;

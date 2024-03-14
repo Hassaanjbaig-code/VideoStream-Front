@@ -4,12 +4,12 @@ import { ResultSignUp, SignUpRequest } from "../../../vite-env";
 export const SignUp = createApi({
   reducerPath: "SignUp", // Should match your store configuration
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000", // Adjust the base URL
+    baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
     register: builder.mutation<ResultSignUp, SignUpRequest>({
       query: (data) => ({
-        url: "/user/SignUp", // Adjust the URL
+        url: "/user/SignUp",
         method: "POST",
         body: data,
       }),

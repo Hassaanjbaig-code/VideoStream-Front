@@ -3,7 +3,7 @@ import AnimatedCursor from "react-animated-cursor";
 const AnimCursor = () => {
   return (
     <AnimatedCursor
-      innerSize={8}
+      innerSize={5}
       outerSize={30}
       innerScale={1}
       outerScale={1.5}

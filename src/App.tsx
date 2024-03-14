@@ -42,10 +42,9 @@ const App = () => {
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SigUp handleError={showingError} />} />
         <Route path="/" element={<Home />} />
-        <Route
-          path="/AddVideo"
-          element={isLoggedIn.value ? <CreateCard /> : <NoAuthPage />}
-        />
+        <Route path="/AddVideo" element={
+          isLoggedIn.value ? <CreateCard /> : <NoAuthPage /> 
+        } />
         <Route path="/createChannel" element={<CreateChannel />} />
         <Route
           path="/channel"
