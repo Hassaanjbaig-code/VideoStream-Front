@@ -12,6 +12,7 @@ import ViewChannelDetial from "./components/channel/ViewChannelDetial";
 import NoAuthPage from "./components/NoAuth/noAuthPage";
 import { isLoggedIn } from "./components/input/Auth";
 import AnimCursor from "./components/channel/AnimCursor";
+import Activated from "./components/activated/Activated";
 const App = () => {
   const [showError, setshowError] = useState({
     error: "",
@@ -40,6 +41,7 @@ const App = () => {
       <Nav />
       <Routes>
         <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/Activated" element={<Activated />} />
         <Route path="/SignUp" element={<SigUp handleError={showingError} />} />
         <Route path="/" element={<Home />} />
         <Route path="/AddVideo" element={

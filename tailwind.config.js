@@ -14,10 +14,37 @@ export default {
           '100%': {
             transform: 'scale(1.15)' // Added quotes and fixed syntax
           }
+        },
+        animationAlert: {
+          "0%": {
+            top: "0"
+          }, 
+          "10%" :{
+            top: "2rem"
+          },
+          "20%" :{
+            top: "4rem"
+          },
+          "30%" :{
+            top: "6rem"
+          },
+          "40%" :{
+            top: "8rem"
+          },
+          "50%" :{
+            top: "10rem"
+          },
+          "60%" :{
+            top: "12rem"
+          },
+          "100%" :{
+            top: "14rem"
+          },
         }
       },
       animation: {
         Like: 'animateLike 2s ease-in-out 1',
+        DropDownAlert: "animationAlert 6s ease-in-out 1",
       }
     },
   },
