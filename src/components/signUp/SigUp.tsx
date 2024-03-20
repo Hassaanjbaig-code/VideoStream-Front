@@ -1,106 +1,71 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Input from "../input/Input";
+import { useRegisterMutation } from "../../redux/FetchApi/SignUp/SignUp";
+import { useNavigate } from "react-router-dom";
+import { SigUpProps, SignUpRequest } from "../../vite-env";
+import Alert2 from "../alert/Alert2";
+import Form from "./Form";
 import {
   validateName,
   validationEmail,
   validatePassword,
-} from "../../Validation/InputValidation";
-import { useRegisterMutation } from "../../redux/FetchApi/SignUp/SignUp";
-import { useNavigate } from "react-router-dom";
-import { SigUpProps, SignUpRequest } from "../../vite-env";
+  } from "../../Validation/InputValidation";
 
-export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
-  const [passwordDisplay, setPasswordDisplay] = useState(false);
-  const [register, { isError, error: SignUpError, isSuccess }] = useRegisterMutation();
+export const SigUp: React.FC<SigUpProps> = () => {
+  
+  const [openALert, setOpenAlert] = useState({
+    show: false,
+    msg: ""
+  });
+  const [register, { isError, error: SignUpError, isSuccess }] =
+    useRegisterMutation();
   const Navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [NameEror, setnameError] = useState({
-    isValid: false,
-    err: "",
-  });
-  const [EmailEror, setemailError] = useState({
-    isValid: false,
-    err: "",
-  });
-  const [PasswordEror, setpasswordError] = useState({
-    isValid: false,
-    err: "",
-  });
+
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
-  const handleBlurName = () => {
-    const errorName = validateName(form.name);
-    setnameError({
-      ...NameEror,
-      isValid: errorName.isValid,
-      err: errorName.err,
-    });
-  };
-  const handleBlurEmail = () => {
-    const errorEmail = validationEmail(form.email);
-    setemailError({
-      ...EmailEror,
-      isValid: errorEmail.isValid,
-      err: errorEmail.err,
-    });
-  };
-  const handleBlurPassword = () => {
-    const errorPassword = validatePassword(form.password);
-    setpasswordError({
-      ...PasswordEror,
-      isValid: errorPassword.isValid,
-      err: errorPassword.err,
-    });
-  };
-  let PasswordShow = "password";
-  const handlePasswordDisplay = () => {
-    setPasswordDisplay(!passwordDisplay);
-  };
-  if (passwordDisplay === true) {
-    PasswordShow = "text";
-    // console.log(PasswordShow)
-  } else {
-    PasswordShow = "password";
-  }
-  const handleFocus = () => {
-    setnameError({
-      isValid: false,
-      err: "",
-    });
-  };
+  
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!NameEror.isValid && !EmailEror.isValid && !PasswordEror.isValid) {
+    const nameError = validateName(form.name)
+    const emailError = validationEmail(form.email)
+    const passwordError = validatePassword(form.password)
+
+    if (nameError.isValid && emailError.isValid && passwordError.isValid) {
       const signUp: SignUpRequest = {
         name: form.name,
         email: form.email,
         password: form.password,
       };
-      register(signUp);
+      let result = await register(signUp);
     } else {
-      alert("Please Fill the Field correctly");
+      setOpenAlert({
+        show: true,
+        msg: "Please fill the form correctly"
+      })
     }
   };
-  // console.log(isSuccess);
-  // console.log(data);
-
   const CheckAccount = useCallback(() => {
     if (isSuccess) {
-        setForm({
-          name: "",
-          email: "",
-          password: "",
-        });
-        Navigate("/SignIn");
+      setForm({
+        name: "",
+        email: "",
+        password: "",
+      });
+      // Navigate("/SignIn");
+      setOpenAlert({
+        show: true,
+        msg:"Please verify your email"
+      });
       // }
     }
   }, [setForm, Navigate, isSuccess]);
@@ -109,67 +74,47 @@ export const SigUp: React.FC<SigUpProps> = ({ handleError }) => {
     CheckAccount();
   }, [isSuccess, CheckAccount]);
 
-  return (
-    <section className="w-full h-[140vh] flex justify-center items-center">
-      <div className="md:w-[35rem] w-[92%] bg-black rainbow flex flex-col">
-        <h2 className="text-center my-3 font-bold text-6xl text-white">
-          Sign Up
-        </h2>
-        <form
-          className="flex flex-col gap-7 my-20 items-center justify-center"
-          onSubmit={handleSignUp}
-        >
-          <Input
-            name="name"
-            label="Name"
-            type="text"
-            value={form.name}
-            error={NameEror}
-            passwordChecker={false}
-            handleForm={handleFormChange}
-            handleBlur={handleBlurName}
-            handleFocus={handleFocus}
-            placeholder="Enter your name"
-          />
+  function CloseAlert() {
+    setOpenAlert({
+      show: false,
+      msg: ""
+    });
+  }
 
-          <Input
-            name="email"
-            label="Email"
-            type="email"
-            value={form.email}
-            error={EmailEror}
-            passwordChecker={false}
-            handleForm={handleFormChange}
-            handleBlur={handleBlurEmail}
-            handleFocus={handleFocus}
-            placeholder="Enter Email"
-          />
-          <Input
-            name="password"
-            label="Password"
-            type={PasswordShow}
-            value={form.password}
-            passwordChecker={true}
-            classeWraper=""
-            password={passwordDisplay}
-            error={PasswordEror}
-            handleForm={handleFormChange}
-            handleBlur={handleBlurPassword}
-            handleFocus={handleFocus}
-            handlePasswordDisplay={handlePasswordDisplay}
-            placeholder="Enter your password"
-          />
-          {isError && (
-            <p className="text-red-400 text-sm">{SignUpError?.data.message}</p>
-          )}
-          <button
-            type="submit"
-            className="p-5 bg-blue-600 w-44 h-16 rounded-lg"
+  return (
+    <>
+      <section className="w-full md:h-[140vh] h-screen flex justify-center items-center">
+        <div className="md:w-[35rem] w-[92%] bg-black rainbow flex flex-col">
+          <h2 className="text-center my-3 font-bold text-6xl text-white">
+            Sign Up
+          </h2>
+          <form
+            className="flex flex-col gap-7 my-20 items-center justify-center"
+            onSubmit={handleSignUp}
           >
-            Submit
-          </button>
-        </form>
-      </div>
-    </section>
+
+            <Form form={form} handleChange={handleFormChange} key={Math.random()} />
+            
+            {isError && (
+              <p className="text-red-400 text-sm">
+                {SignUpError?.data.message}
+              </p>
+            )}
+            <button
+              type="submit"
+              className="p-5 bg-blue-600 w-44 h-16 rounded-lg"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        {openALert.show == false && (
+          <Alert2
+            msg={openALert.msg}
+            close={CloseAlert}
+          />
+        )}
+      </section>
+    </>
   );
 };
