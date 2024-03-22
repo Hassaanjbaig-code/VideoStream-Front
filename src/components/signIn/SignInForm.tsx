@@ -4,15 +4,21 @@ import {
   validatePassword,
 } from "./../../Validation/InputValidation";
 import Input from "../input/Input";
+import ReactLoading from "react-loading";
 
 interface SignInFormProp {
-  form: {
+  isLoading: boolean;
+  showError: string;
+  handleSubmitForm: (form: {
     email: string;
-    password: string
-  };
-  handleFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    password: string;
+  }) => Promise<boolean | undefined>;
 }
-const SignInForm = ({ form, handleFormChange }: SignInFormProp) => {
+const SignInForm: React.FC<SignInFormProp> = ({
+  isLoading,
+  showError,
+  handleSubmitForm,
+}: SignInFormProp) => {
   const [passwordDisplay, setPasswordDisplay] = useState(false);
   const [emailError, setError] = useState({
     isValid: false,
@@ -27,6 +33,18 @@ const SignInForm = ({ form, handleFormChange }: SignInFormProp) => {
     setPasswordError({
       isValid: false,
       err: "",
+    });
+  };
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
     });
   };
   let PasswordShow = "password";
@@ -57,8 +75,27 @@ const SignInForm = ({ form, handleFormChange }: SignInFormProp) => {
     });
   };
 
+  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    let data = await handleSubmitForm({
+      email: form.email,
+      password: form.password,
+    });
+
+    if (data == true) {
+      setForm({
+        email: "",
+        password: "",
+      });
+    }
+  };
+
   return (
-    <>
+    <form
+      onSubmit={handleSignInSubmit}
+      className="flex flex-col gap-7 my-20 items-center justify-center"
+    >
       <div className="flex flex-col gap-2 max-md:w-[95%]">
         <label>
           Email{" "}
@@ -92,7 +129,20 @@ const SignInForm = ({ form, handleFormChange }: SignInFormProp) => {
         classeWraper={null}
         divClassName=""
       />
-    </>
+
+      {isLoading && (
+        <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+      )}
+
+      <h2 className="text-xl text-red-500">{showError}</h2>
+      <button
+        type="submit"
+        className="bg-white text-black/60 w-32 h-16 text-2xl border-2 hover:border-blue-400 rounded-2xl hover:transition-shadow delay-75 duration-100"
+        disabled={isLoading}
+      >
+        Log In
+      </button>
+    </form>
   );
 };
 

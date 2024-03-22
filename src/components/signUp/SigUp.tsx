@@ -41,7 +41,6 @@ export const SigUp = () => {
   };
   const CheckAccount = useCallback(() => {
     if (isSuccess) {
-      // Navigate("/SignIn");
       setOpenAlert({
         show: true,
         msg: "Please verify your email",

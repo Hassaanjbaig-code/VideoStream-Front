@@ -10,7 +10,6 @@ import {
 } from "../../redux/FetchApi/SignIn/SignIn";
 import { SignInRequest } from "../../vite-env";
 import { user } from "../input/Auth";
-import ReactLoading from "react-loading";
 import { signUpStore } from "../../hooks/auth";
 import Alert2 from "../alert/Alert2";
 import SignInForm from "./SignInForm";
@@ -19,22 +18,11 @@ const SignIn = () => {
   let navigation = useNavigate();
   const [verify, setVerify] = useState(false);
   const [logIn, { data, isLoading, isSuccess }] = useLogInMutation();
-  const [resend, { isSuccess: ResendSuccess }] = useResendMutation()
+  const [resend, { isSuccess: ResendSuccess }] = useResendMutation();
   const [showError, setShowError] = useState("");
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (form: { email: string; password: string }) => {
     setShowError("");
     const emailVerify = validationEmail(form.email);
     const passwordVerify = validatePassword(form.password);
@@ -58,26 +46,25 @@ const SignIn = () => {
               navigation("/");
             }
           } else {
+            setEmail(form.email);
             setVerify(true);
           }
         }
+
+        return true;
       } else {
         setShowError("Email and Password is Incorrect");
-        // console.error(error);
+        return false;
       }
-      setForm({
-        email: "",
-        password: "",
-      });
     } else {
       setShowError("Email and password is not written correctly");
     }
   };
 
   async function ALertCLose() {
-    await resend(String(form.email))
+    await resend(String(email));
     if (ResendSuccess) {
-      setVerify(false)
+      setVerify(false);
     }
   }
 
@@ -87,38 +74,23 @@ const SignIn = () => {
         <h2 className="text-center my-3 font-bold text-6xl text-white">
           Sign In
         </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-7 my-20 items-center justify-center"
-        >
-          <SignInForm
-            form={form}
-            handleFormChange={handleFormChange}
-            key={Math.random()}
-          />
+        <SignInForm
+          key={Math.random()}
+          isLoading={isLoading}
+          showError={showError}
+          handleSubmitForm={handleSubmit}
+        />
 
-          <h2 className="text-xl text-red-500">{showError}</h2>
-          {isLoading && (
-            <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
-          )}
+        <p>
+          How to create a New Account? Just{" "}
           <button
-            type="submit"
-            className="bg-white text-black/60 w-32 h-16 text-2xl border-2 hover:border-blue-400 rounded-2xl hover:transition-shadow delay-75 duration-100"
-            disabled={isLoading}
+            type="button"
+            className="text-blue-700 border-none bg-transparent"
+            onClick={() => navigation("/SignUp")}
           >
-            Log In
+            Click Me
           </button>
-          <p>
-            How to create a New Account? Just{" "}
-            <button
-              type="button"
-              className="text-blue-700 border-none bg-transparent"
-              onClick={() => navigation("/SignUp")}
-            >
-              Click Me
-            </button>
-          </p>
-        </form>
+        </p>
       </div>
       {verify && (
         <Alert2
