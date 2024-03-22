@@ -46,7 +46,6 @@ const ShowComment = ({ id }: ShowComment) => {
     // console.log("DataSet Comment ID", commentID); // Retrieve commentID from the data attribute
     if (commentID) {
       const response = await addLikeComment(String(commentID));
-      console.log(response);
       if ("data" in response) {
         if (response.data.status == 200 || 201) {
         }
@@ -60,7 +59,6 @@ const ShowComment = ({ id }: ShowComment) => {
     const commentID = e.currentTarget.dataset.commentId;
     if (commentID) {
       const response = await addDisLikeComment(String(commentID));
-      console.log(response);
       if ("data" in response) {
         if (response.data.status == 200 || 201) {
           console.log(response.data.message);
@@ -71,7 +69,7 @@ const ShowComment = ({ id }: ShowComment) => {
 
   if (response.isLoading)
     <div>
-      <h4>Loading ...</h4>
+      <ReactLoading color="#fff" type="bars" />
     </div>;
 
   let buttonComment = ["Delete"];

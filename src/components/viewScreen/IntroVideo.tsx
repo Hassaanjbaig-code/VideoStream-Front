@@ -1,6 +1,7 @@
 import { useAddSubscribeMutation } from "../../redux/FetchApi/VideoFetch/Video";
 import LikeDisLike from "./LikeDisLike";
 import { SubscribeClickButton } from "../../hooks/Button";
+import { isLoggedIn } from "../input/Auth";
 
 interface VideoIntro {
   title: string | undefined;
@@ -9,15 +10,27 @@ interface VideoIntro {
   view: string | number | undefined;
   Like: number | undefined;
   id: string | undefined;
+  checkSign: () => boolean;
 }
 
-const IntroVideo = ({ title, image, name, view, Like, id }: VideoIntro) => {
+const IntroVideo = ({
+  title,
+  image,
+  name,
+  view,
+  Like,
+  id,
+  checkSign,
+}: VideoIntro) => {
   const [addSubscribe] = useAddSubscribeMutation();
 
   async function AddSubscribe(id: string | undefined) {
-    if (id == undefined) return (SubscribeClickButton.value = false);
-    let data = await addSubscribe(id);
-    console.log("This is the subscribe data", data);
+    if (isLoggedIn.value) {
+      if (id == undefined) return (SubscribeClickButton.value = false);
+      let data = await addSubscribe(id);
+    } else {
+      checkSign()
+    }
   }
   return (
     <>
@@ -42,7 +55,7 @@ const IntroVideo = ({ title, image, name, view, Like, id }: VideoIntro) => {
             Subscribe
           </button>
         </div>
-        <LikeDisLike like={Like} key={id} id={id} />
+        <LikeDisLike like={Like} key={id} id={id} checkSignIn={checkSign} />
       </div>
     </>
   );

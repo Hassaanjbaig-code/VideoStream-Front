@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useAddCommentMutation } from "../../redux/FetchApi/VideoFetch/Video";
 import { Comment } from "../../vite-env";
+import { isLoggedIn } from "../input/Auth";
 
 interface PropComments {
   totalComment: number | undefined;
   videoID: string | undefined;
+  checkSignIn: () => boolean
 }
 
-const Comments = ({ totalComment, videoID }: PropComments) => {
+const Comments = ({ totalComment, videoID, checkSignIn }: PropComments) => {
   const [comments, setComments] = useState<string>("");
   const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComments(e.target.value);
@@ -23,14 +25,18 @@ const Comments = ({ totalComment, videoID }: PropComments) => {
  
 
   async function comment() {
-    try {
-      await addComment(Postcomment);
-      if(isSuccess){
-        setComments("")
+    if(isLoggedIn.value){
+      try {
+        await addComment(Postcomment);
+        if(isSuccess){
+          setComments("")
+        }
+      } catch (error) {
+        console.log(error);
+        // Handle any errors here
       }
-    } catch (error) {
-      console.log(error);
-      // Handle any errors here
+    } else {
+      checkSignIn()
     }
   }
 
