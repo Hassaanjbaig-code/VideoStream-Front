@@ -16,7 +16,6 @@ const parsedUserDetail: sign = storedUserDetail !== null
 
   
   export const user = signal<sign | undefined>(parsedUserDetail);
-  console.log(user.value)
 
 export const updateUser = (newUserDetail: undefined) => {
   user.value = newUserDetail;

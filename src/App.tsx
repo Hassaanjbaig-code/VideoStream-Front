@@ -19,7 +19,6 @@ const App = () => {
     status: 0,
   });
   const showingError = (error: string, status: number) => {
-    console.log(error);
     setshowError({
       ...showError,
       error,
@@ -42,7 +41,7 @@ const App = () => {
       <Routes>
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/Activated" element={<Activated />} />
-        <Route path="/SignUp" element={<SigUp handleError={showingError} />} />
+        <Route path="/SignUp" element={<SigUp />} />
         <Route path="/" element={<Home />} />
         <Route path="/AddVideo" element={
           isLoggedIn.value ? <CreateCard /> : <NoAuthPage /> 

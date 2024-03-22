@@ -4,50 +4,27 @@ import {
   validationEmail,
   validatePassword,
 } from "./../../Validation/InputValidation";
-import { useLogInMutation } from "../../redux/FetchApi/SignIn/SignIn";
-// import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-// import { SerializedError } from "@reduxjs/toolkit";
-import Input from "../input/Input";
 import {
-  SignInRequest,
-} from "../../vite-env";
+  useLogInMutation,
+  useResendMutation,
+} from "../../redux/FetchApi/SignIn/SignIn";
+import { SignInRequest } from "../../vite-env";
 import { user } from "../input/Auth";
 import ReactLoading from "react-loading";
+import { signUpStore } from "../../hooks/auth";
+import Alert2 from "../alert/Alert2";
+import SignInForm from "./SignInForm";
 
 const SignIn = () => {
   let navigation = useNavigate();
-  const [passwordDisplay, setPasswordDisplay] = useState(false);
-  const [logIn, { data, isLoading, isSuccess }] =
-    useLogInMutation();
+  const [verify, setVerify] = useState(false);
+  const [logIn, { data, isLoading, isSuccess }] = useLogInMutation();
+  const [resend, { isSuccess: ResendSuccess }] = useResendMutation()
   const [showError, setShowError] = useState("");
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const [emailError, setError] = useState({
-    isValid: false,
-    err: "",
-  });
-  const [passwError, setPasswordError] = useState({
-    isValid: false,
-    err: "",
-  });
-
-  const handleFocus = () => {
-    setPasswordError({
-      isValid: false,
-      err: "",
-    });
-  };
-  let PasswordShow = "password";
-  const handlePasswordDisplay = () => {
-    setPasswordDisplay(!passwordDisplay);
-  };
-  if (passwordDisplay === true) {
-    PasswordShow = "text";
-  } else {
-    PasswordShow = "password";
-  }
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -55,28 +32,14 @@ const SignIn = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleBlurEmail = () => {
-    const getError = validationEmail(form.email);
-    setError({
-      ...emailError,
-      isValid: getError.isValid,
-      err: getError.err,
-    });
-  };
-
-  const handleBlurPassword = () => {
-    const errorInPassword = validatePassword(form.password);
-    setPasswordError({
-      ...passwError,
-      isValid: errorInPassword.isValid,
-      err: errorInPassword.err,
-    });
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setShowError("");
+    const emailVerify = validationEmail(form.email);
+    const passwordVerify = validatePassword(form.password);
 
-    if (!emailError.isValid && !passwError.isValid) {
+    if (!emailVerify.isValid && !passwordVerify.isValid) {
       const signIn: SignInRequest = {
         email: form.email,
         password: form.password,
@@ -85,16 +48,17 @@ const SignIn = () => {
 
       if (isSuccess) {
         if (data?.status == 200) {
-          let store = {
-            token: data?.token,
-            channel: data?.channel,
-          };
-          localStorage.setItem("User Detail", JSON.stringify(store));
-          if (data?.channel.status == 404) {
-            navigation("/createChannel");
+          if (data?.data?.verify) {
+            let store = { token: data?.token, channel: data?.channel };
+            signUpStore(store);
+            if (data?.channel.status == 404) {
+              navigation("/createChannel");
+            } else {
+              user.value = store;
+              navigation("/");
+            }
           } else {
-            user.value = store;
-            navigation("/");
+            setVerify(true);
           }
         }
       } else {
@@ -105,8 +69,17 @@ const SignIn = () => {
         email: "",
         password: "",
       });
+    } else {
+      setShowError("Email and password is not written correctly");
     }
   };
+
+  async function ALertCLose() {
+    await resend(String(form.email))
+    if (ResendSuccess) {
+      setVerify(false)
+    }
+  }
 
   return (
     <section className="w-full h-[140vh] flex justify-center items-center">
@@ -118,39 +91,12 @@ const SignIn = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-7 my-20 items-center justify-center"
         >
-          <div className="flex flex-col gap-2 max-md:w-[95%]">
-            <label>
-              Email{" "}
-              {emailError.isValid && (
-                <span className="text-red-500">{emailError.err}</span>
-              )}
-            </label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onBlur={handleBlurEmail}
-              onChange={handleFormChange}
-              placeholder="Enter Email"
-              className="bg-white/50 focus:bg-white w-full h-16 text-lg rounded-lg md:w-[29rem] p-5 focus:ring text-black"
-            />
-          </div>
-          <Input
-            name="password"
-            label="Password"
-            type={PasswordShow}
-            value={form.password}
-            passwordChecker={true}
-            password={passwordDisplay}
-            error={passwError}
-            handleForm={handleFormChange}
-            handleBlur={handleBlurPassword}
-            handleFocus={handleFocus}
-            handlePasswordDisplay={handlePasswordDisplay}
-            placeholder="Enter your password"
-            classeWraper={null}
-            divClassName=""
+          <SignInForm
+            form={form}
+            handleFormChange={handleFormChange}
+            key={Math.random()}
           />
+
           <h2 className="text-xl text-red-500">{showError}</h2>
           {isLoading && (
             <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
@@ -158,6 +104,7 @@ const SignIn = () => {
           <button
             type="submit"
             className="bg-white text-black/60 w-32 h-16 text-2xl border-2 hover:border-blue-400 rounded-2xl hover:transition-shadow delay-75 duration-100"
+            disabled={isLoading}
           >
             Log In
           </button>
@@ -173,6 +120,14 @@ const SignIn = () => {
           </p>
         </form>
       </div>
+      {verify && (
+        <Alert2
+          msg="Please verify your account"
+          key={Math.random()}
+          close={ALertCLose}
+          buttonCalled="Resend"
+        />
+      )}
     </section>
   );
 };

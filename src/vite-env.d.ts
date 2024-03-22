@@ -20,12 +20,12 @@ type ApiResponse =
     };
 
 interface videoAddData {
-  _id: string
+  _id: string;
   title: string;
   description: string;
   image: string;
   video: string;
-  View: number
+  View: number;
 }
 
 type SigUpProps = {
@@ -69,10 +69,11 @@ type CustomResponseSignIn = {
     message?: string;
     token?: string;
     status: number;
-    channel:{
-          status: Number;
-          message: String;
-        };
+    verify: boolean;
+    channel: {
+      status: Number;
+      message: String;
+    };
   };
 };
 
@@ -91,7 +92,15 @@ type QueryState<TData, TError> = {
   status: QueryStatus;
 };
 
-type SignInQueryState = QueryState<CustomResponseSignIn['data'], CustomResponseSignInError['data']>;
+type SignInQueryState = QueryState<
+  CustomResponseSignIn["data"],
+  CustomResponseSignInError["data"]
+>;
+
+type SignUpQueryState = QueryState<
+  ResultSignUp["data"],
+  CustomResponseSignInError["data"]
+>;
 
 type ResultSignUp = {
   message: string;
@@ -150,13 +159,13 @@ type videoType = {
   Like: LikeType[];
   DisLike: LikeType[];
   subscribe: SubscribeType[];
-  sideVideo: sideoVideos[]
+  sideVideo: sideoVideos[];
 };
 
 interface sideoVideos {
   video: videoAddData;
   channelName: string;
-  channelImage: string
+  channelImage: string;
 }
 
 interface tokenImport {
@@ -254,8 +263,8 @@ interface Like {
 }
 
 interface likeRequest {
-    status: number;
-    message: number;
+  status: number;
+  message: number;
 }
 
 interface commentlike {
@@ -264,8 +273,8 @@ interface commentlike {
 }
 
 interface Subscriberstype {
-    status: number;
-    message: number | string;
+  status: number;
+  message: number | string;
 }
 
 interface commentDelete {
@@ -276,24 +285,24 @@ interface commentDelete {
 }
 
 interface HomeVideo {
-    video: {
+  video: {
+    _id: string;
+    title: string;
+    description: string;
+    image: string;
+    video: string;
+    View: number;
+    channel: {
       _id: string;
-      title: string;
-      description: string;
+      name: string;
       image: string;
-      video: string;
-      View: number;
-      channel: {
-        _id: string;
-        name: string;
-        image: string;
-      };
+    };
   };
 }
 
 type VideoDataWithChannels = {
   status: number;
-  data: HomeVideo[]
+  data: HomeVideo[];
 };
 
 type VideoData = {
@@ -303,7 +312,7 @@ type VideoData = {
     description: string;
     image: string;
     video: string; // Add the missing 'video' field
-    View: number
+    View: number;
     channel: {
       _id: string;
       name: string;

@@ -13,9 +13,15 @@ export const SignIn = createApi({
                 method: "POST",
                 body: data
             }) 
+        }),
+        resend: builder.mutation<String, String>({
+            query: (email) => ({
+                url: `/resendLink/${email}`,
+                method: "GET"
+            })
         })
     })
 })
 
-export const { useLogInMutation } = SignIn
+export const { useLogInMutation, useResendMutation } = SignIn
 

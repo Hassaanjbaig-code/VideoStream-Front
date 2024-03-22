@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ResultSignUp, SignUpRequest } from "../../../vite-env";
+import { SignUpQueryState, SignUpRequest } from "../../../vite-env";
 
 export const SignUp = createApi({
   reducerPath: "SignUp", // Should match your store configuration
@@ -7,7 +7,7 @@ export const SignUp = createApi({
     baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
-    register: builder.mutation<ResultSignUp, SignUpRequest>({
+    register: builder.mutation<SignUpQueryState, SignUpRequest>({
       query: (data) => ({
         url: "/user/SignUp",
         method: "POST",
