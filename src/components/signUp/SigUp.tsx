@@ -43,7 +43,7 @@ export const SigUp = () => {
     if (isSuccess) {
       setOpenAlert({
         show: true,
-        msg: "Please verify your email",
+        msg: "Please verify your email by checking the spam",
       });
       // }
     }
