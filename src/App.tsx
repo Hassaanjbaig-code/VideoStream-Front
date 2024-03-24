@@ -43,10 +43,14 @@ const App = () => {
         <Route path="/Activated" element={<Activated />} />
         <Route path="/SignUp" element={<SigUp />} />
         <Route path="/" element={<Home />} />
-        <Route path="/AddVideo" element={
-          isLoggedIn.value ? <CreateCard /> : <NoAuthPage /> 
-        } />
-        <Route path="/createChannel" element={<CreateChannel />} />
+        <Route
+          path="/AddVideo"
+          element={isLoggedIn.value ? <CreateCard /> : <NoAuthPage />}
+        />
+        <Route
+          path="/createChannel"
+          element={isLoggedIn.value ? <CreateChannel /> : <NoAuthPage />}
+        />
         <Route
           path="/channel"
           element={isLoggedIn.value ? <ViewChannelDetial /> : <NoAuthPage />}

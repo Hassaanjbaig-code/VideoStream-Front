@@ -85,6 +85,7 @@ type CustomResponseSignInError = {
 };
 
 type QueryState<TData, TError> = {
+  verify: any;
   token: any;
   channel: any;
   data?: TData;

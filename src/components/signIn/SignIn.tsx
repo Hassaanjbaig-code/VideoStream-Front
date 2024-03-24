@@ -36,7 +36,7 @@ const SignIn = () => {
 
       if (isSuccess) {
         if (data?.status == 200) {
-          if (data?.data?.verify) {
+          if (data?.verify) {
             let store = { token: data?.token, channel: data?.channel };
             signUpStore(store);
             if (data?.channel.status == 404) {
