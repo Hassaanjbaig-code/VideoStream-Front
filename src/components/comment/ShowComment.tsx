@@ -116,7 +116,7 @@ const ShowComment = ({ id }: ShowComment) => {
                 </ul>
               )}
               <p className="text-md text-white">{result.Comment}</p>
-              <div className="flex gap-6 items-center my-2">
+              {/* <div className="flex gap-6 items-center my-2">
                 <button
                   type="button"
                   onClick={(e) => AddLikeComment(e)}
@@ -131,7 +131,7 @@ const ShowComment = ({ id }: ShowComment) => {
                 >
                   <FiThumbsDown size={30} />
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </li>
