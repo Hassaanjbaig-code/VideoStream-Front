@@ -8,7 +8,7 @@ import {
   showComments,
   commentlike,
   commentDelete,
-  VideoFormData
+  VideoFormData,
 } from "../../../vite-env";
 
 interface tokenImport {
@@ -46,9 +46,12 @@ export const FetchVideo = createApi({
       }),
       invalidatesTags: ["Video"],
     }),
-    showVideo: builder.query<videoType, String>({
-      query: (id) => `/${id}`,
-      providesTags: ["Video", "showVideo"],
+    showVideo: builder.mutation<videoType, any>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Video", "showVideo"],
     }),
     addLike: builder.mutation<likeRequest, String>({
       query: (data) => ({
@@ -113,7 +116,7 @@ export const FetchVideo = createApi({
 export const {
   useStartVideoQuery,
   useAddVideoMutation,
-  useShowVideoQuery,
+  useShowVideoMutation,
   useAddLikeMutation,
   useAddSubscribeMutation,
   useAddDisLikeMutation,
@@ -121,5 +124,5 @@ export const {
   useShowCommentQuery,
   useAddLikeCommentMutation,
   useAddDisLikeCommentMutation,
-  useDeleteComentMutation
+  useDeleteComentMutation,
 } = FetchVideo;
