@@ -8,7 +8,7 @@ import {
 } from "../../redux/FetchApi/VideoFetch/Video";
 import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { CiMenuKebab } from "react-icons/ci";
-import ReactLoading from "react-loading"
+import ReactLoading from "react-loading";
 
 interface tokenImport {
   token: string;
@@ -17,16 +17,27 @@ interface tokenImport {
 
 interface ShowComment {
   id: string | undefined;
+  videoLoading: boolean;
 }
 
-const ShowComment = ({ id }: ShowComment) => {
+const ShowComment = ({ id, videoLoading }: ShowComment) => {
   const [commentEdit, setCommentEdit] = useState(false);
   const [addLikeComment] = useAddLikeCommentMutation();
   const [addDisLikeComment] = useAddDisLikeCommentMutation();
 
+  // if (videoLoading) {
+  //   return (
+  //     <div>
+  //       <ReactLoading color="#fff" type="bars" />
+  //     </div>
+  //   );
+  // }
+
   const { data: commentData, isLoading: commentDataLoading } =
     useShowCommentQuery(String(id));
-  const [deleteComent, response] = useDeleteComentMutation();
+
+  const [deleteComent, { isLoading: CommentDeleteLoading }] =
+    useDeleteComentMutation();
 
   const token: tokenImport = JSON.parse(
     localStorage.getItem("User Detail") || "{}"
@@ -67,10 +78,13 @@ const ShowComment = ({ id }: ShowComment) => {
     }
   };
 
-  if (response.isLoading)
-    <div>
-      <ReactLoading color="#fff" type="bars" />
-    </div>;
+  if (CommentDeleteLoading) {
+    return (
+      <div>
+        <ReactLoading color="#fff" type="bars" />
+      </div>
+    );
+  }
 
   let buttonComment = ["Delete"];
   return (

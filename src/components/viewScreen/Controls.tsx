@@ -1,4 +1,10 @@
-import React, { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { BsFullscreen } from "react-icons/bs";
 import { IoPause, IoPlay } from "react-icons/io5";
@@ -41,6 +47,7 @@ const Controls = (props: ControlsProps) => {
     value: number;
   }) => {
     props.setPlayBackSpeed({ Selectedspeed: speed, Speed: value });
+    props.setSetting(false)
   };
 
   const handleMouseDown = () => {
@@ -87,13 +94,13 @@ const Controls = (props: ControlsProps) => {
   }
 
   return (
-    <ul className="absolute left-0 bottom-2 z-30 w-full flex justify-around items-center">
+    <ul className="absolute left-0 bottom-2 z-30 flex justify-evenly items-center w-[99%] md:w-full max-sm:pl-[0.5%]">
       <li>
         <button onClick={() => props.setPlaying(!props.playing)}>
-          {props.playing ? <IoPause /> : <IoPlay />}
+          {props.playing && currentTime == duration ? <IoPause /> : <IoPlay />}
         </button>
       </li>
-      <li>
+      <li className="max-md:w-[10%]">
         <p className="text-[#ffff] text-[12px] w-20 xl:font-medium  max-sm:w-20">
           <span>{currentTime}</span> / <span>{duration}</span>
         </p>
@@ -117,17 +124,17 @@ const Controls = (props: ControlsProps) => {
             <PiSpeakerNoneDuotone size={20} />
           )}
         </button>
-        <input
-          type="range"
-          value={props.volume.speed}
-          onChange={handleVolumeChange}
-          min="0"
-          max="1"
-          step="0.1"
-          className={`${
-            props.volume.open ? "block" : "hidden"
-          } transform -rotate-90 origin-left absolute bottom-[14px] ml-3 h-4 w-40`}
-        />
+        {props.volume.open && (
+          <input
+            type="range"
+            value={props.volume.speed}
+            onChange={handleVolumeChange}
+            min="0"
+            max="1"
+            step="0.1"
+            className={`transform -rotate-90 origin-left absolute bottom-[14px] ml-3 h-4 w-40`}
+          />
+        )}
       </li>
       <li
         className={`w-40 h-48 absolute right-[8px] bottom-[43px] border ${

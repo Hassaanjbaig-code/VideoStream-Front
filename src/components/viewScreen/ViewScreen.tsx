@@ -78,7 +78,7 @@ const ViewScreen = () => {
           createdAt={data?.data.createdAt}
         />
         <Comments totalComment={data?.TotalComment} videoID={data?.data._id} checkSignIn={checkSigIn} />
-        <ShowComment id={data?.data._id} />
+        <ShowComment id={id} videoLoading={isLoading} />
       </section>
       <section className="w-[30%] max-md:w-full">
         <SideCard data={data?.sideVideo} />

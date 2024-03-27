@@ -17,7 +17,7 @@ const Player = ({ VideoLink }: Video2) => {
   const [durationSeconds, setDurationSeconds] = useState(0);
   const [playedSeconds, setPlayedSeconds] = useState(0);
   const playerRef = useRef() as MutableRefObject<ReactPlayer>;
-  const playerContainer = useRef() as MutableRefObject<HTMLButtonElement>;
+  const playerContainer = useRef() as MutableRefObject<HTMLDivElement>;
   const [volume, setVolume] = useState({
     speed: 1,
     open: false,
@@ -44,13 +44,10 @@ const Player = ({ VideoLink }: Video2) => {
     screenfull.toggle(playerContainer.current);
   };
   return (
-    <div>
-      <button
-        type="button"
-        className="relative h-[30rem] flex justify-center items-center "
-        onClick={playingState}
-        ref={playerContainer}
-      >
+    <div onClick={playingState}
+    ref={playerContainer}
+    className="relative md:h-[30rem] flex justify-center items-center h-[14rem] "
+    >
         <ReactPlayer
           ref={playerRef}
           controls={false}
@@ -79,7 +76,6 @@ const Player = ({ VideoLink }: Video2) => {
           setPlayBackSpeed={setPlaybackSpeed}
           toggleFullScreen={toggleFullScreen}
         />
-      </button>
     </div>
   );
 };
