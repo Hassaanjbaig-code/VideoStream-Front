@@ -3,7 +3,6 @@ import { useShowVideoMutation } from "../../redux/FetchApi/VideoFetch/Video";
 import Comments from "../comment/Comments";
 import ShowComment from "../comment/ShowComment";
 import SideCard from "../sideCard/SideCard";
-import Video from "./Video";
 import IntroVideo from "./IntroVideo";
 import VideoAbout from "./VideoAbout";
 import { Check } from "../../hooks/Button";
@@ -34,12 +33,6 @@ const ViewScreen = () => {
       <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
     </div>
   );
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full h-screen flex justify-center items-center">
-  //     </div>
-  //   );
-  // }
 
   // Check for data existence
   Check(data);
@@ -66,9 +59,6 @@ const ViewScreen = () => {
       key={data?.data._id}
     >
       <section className="md:w-[70%]">
-        {/* <Video
-          props={{ playVideo: data?.data.video, image: data?.data.image }}
-        /> */}
         <Video2 VideoLink={data?.data.video} key={Math.random()} />
         <div className="flex flex-col my-5">
           <IntroVideo
@@ -87,8 +77,8 @@ const ViewScreen = () => {
           key={data?.data._id}
           createdAt={data?.data.createdAt}
         />
-        {/* <Comments totalComment={data?.TotalComment} videoID={data?.data._id} checkSignIn={checkSigIn} />
-        <ShowComment id={data?.data._id} /> */}
+        <Comments totalComment={data?.TotalComment} videoID={data?.data._id} checkSignIn={checkSigIn} />
+        <ShowComment id={data?.data._id} />
       </section>
       <section className="w-[30%] max-md:w-full">
         <SideCard data={data?.sideVideo} />
