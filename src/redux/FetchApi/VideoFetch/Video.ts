@@ -10,6 +10,7 @@ import {
   commentDelete,
   VideoFormData,
 } from "../../../vite-env";
+import { Url } from "../../../hooks/auth";
 
 interface tokenImport {
   token: string;
@@ -19,14 +20,10 @@ const token: tokenImport = JSON.parse(
   localStorage.getItem("User Detail") || "{}"
 );
 
-// console.log(token.token)
-
-// const tokenJson: tokenImport = JSON.parse(token)
-
 export const FetchVideo = createApi({
   reducerPath: "FetchVideo",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: Url,
     headers: {
       Authorization: `Bearer ${token.token}`,
     },

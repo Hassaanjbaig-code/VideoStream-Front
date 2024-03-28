@@ -15,3 +15,7 @@ export const signUpStore = (store: signUpStore) => {
   localStorage.setItem("User Detail", JSON.stringify(store));
   user.value = store
 };
+
+// Importing the Backend Url
+
+export let Url = import.meta.env.VITE_BACK_END;

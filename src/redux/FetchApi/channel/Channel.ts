@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ChannelDetail, ChannelFormData } from "../../../vite-env";
+import { Url } from "../../../hooks/auth";
 
 interface tokenImport {
   token: string;
@@ -8,10 +9,11 @@ interface tokenImport {
 const token: tokenImport = JSON.parse(
   localStorage.getItem("User Detail") || "{}"
 );
+
 export const channel = createApi({
   reducerPath: "channel",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: Url,
     headers: {
       Authorization: `Bearer ${token.token}`,
     },

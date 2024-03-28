@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { SignInQueryState, SignInRequest } from "../../../vite-env"
+import { Url } from "../../../hooks/auth"
 
 export const SignIn = createApi({
     reducerPath: "SignIn",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3000"
+        baseUrl: Url
     }),
     endpoints: (builder) => ({
         logIn: builder.mutation<SignInQueryState, SignInRequest>({
