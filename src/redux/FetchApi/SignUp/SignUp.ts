@@ -15,7 +15,13 @@ export const SignUp = createApi({
         body: data,
       }),
     }),
+    resendEmail: builder.mutation({
+      query: (email) => ({
+        url: `/resendLink/${email}`,
+        method: "GET"
+      })
+    })
   }),
 });
 
-export const { useRegisterMutation } = SignUp;
+export const { useRegisterMutation, useResendEmailMutation } = SignUp;

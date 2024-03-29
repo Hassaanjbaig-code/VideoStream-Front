@@ -13,6 +13,7 @@ import NoAuthPage from "./components/NoAuth/noAuthPage";
 import { isLoggedIn } from "./components/input/Auth";
 import AnimCursor from "./components/channel/AnimCursor";
 import Activated from "./components/activated/Activated";
+import ResendMail from "./components/resendMail/ResendMail";
 const App = () => {
   const [showError, setshowError] = useState({
     error: "",
@@ -57,6 +58,7 @@ const App = () => {
         />
         <Route path="/:id" element={<ViewScreen />} />
         <Route path="/noauth" element={<NoAuthPage />} />
+        <Route path="/resendMail" element={<ResendMail />} />
       </Routes>
       <Footer />
     </main>

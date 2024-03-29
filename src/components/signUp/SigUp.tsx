@@ -71,7 +71,7 @@ export const SigUp = () => {
           <Form
             key={Math.random()}
             isError={isError}
-            error={SignUpError?.data.message}
+            error={SignUpError?.data.msg}
             FormSubmit={handleSignUp}
             loading={isLoading}
           />
