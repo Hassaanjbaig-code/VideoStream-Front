@@ -5,19 +5,24 @@ import {
 } from "./../../Validation/InputValidation";
 import Input from "../input/Input";
 import ReactLoading from "react-loading";
+import { SignInError } from "../../vite-env";
 
 interface SignInFormProp {
   isLoading: boolean;
-  showError: string;
+  showError: string | undefined;
+  error: SignInError | undefined;
   handleSubmitForm: (form: {
     email: string;
     password: string;
   }) => Promise<boolean | undefined>;
+  isError: boolean
 }
 const SignInForm: React.FC<SignInFormProp> = ({
   isLoading,
   showError,
   handleSubmitForm,
+  isError,
+  error
 }: SignInFormProp) => {
   const [passwordDisplay, setPasswordDisplay] = useState(false);
   const [emailError, setError] = useState({
@@ -134,7 +139,7 @@ const SignInForm: React.FC<SignInFormProp> = ({
         <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
       )}
 
-      <h2 className="text-xl text-red-500">{showError}</h2>
+      {isError && <h2 className="text-xl text-red-500">{error?.data?.msg || showError}</h2> }
       <button
         type="submit"
         className="bg-white text-black/60 w-32 h-16 text-2xl border-2 hover:border-blue-400 rounded-2xl hover:transition-shadow delay-75 duration-100"

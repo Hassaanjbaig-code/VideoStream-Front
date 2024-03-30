@@ -1,7 +1,11 @@
 /// <reference types="vite/client" />
 
 import { QueryHooks } from "@reduxjs/toolkit/dist/query/react/buildHooks";
-import { MutationActionCreatorResult, MutationDefinition, QueryActionCreatorResult } from "@reduxjs/toolkit/query";
+import {
+  MutationActionCreatorResult,
+  MutationDefinition,
+  QueryActionCreatorResult,
+} from "@reduxjs/toolkit/query";
 import { AnyObject } from "mongoose";
 
 type ApiResponse =
@@ -122,16 +126,25 @@ interface SignUpRequest {
 
 // type ResendQueryState = QueryActionCreatorResult<{
 //   data: ResendSuccess | undefined,
-//   error: ResendError | undefined 
+//   error: ResendError | undefined
 // }
 // >;
-
 
 interface ResendError {
   data: {
     msg: string;
-  }; 
+  };
 }
+
+interface SignInError {
+  status: number;
+  data:
+    | {
+        msg: string;
+      }
+    | undefined;
+}
+
 interface ResendSuccess {
   msg: string;
 }

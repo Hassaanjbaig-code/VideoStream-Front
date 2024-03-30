@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRegisterMutation } from "../../redux/FetchApi/SignUp/SignUp";
-import { SignUpRequest } from "../../vite-env";
+import { ResendError, SignUpRequest } from "../../vite-env";
 import Alert2 from "../alert/Alert2";
 import Form from "./Form";
 import {
@@ -74,7 +74,7 @@ export const SigUp = () => {
           <Form
             key={Math.random()}
             isError={isError}
-            error={SignUpError?.data.msg}
+            error={(SignUpError as ResendError).data?.msg}
             FormSubmit={handleSignUp}
             loading={isLoading}
           />

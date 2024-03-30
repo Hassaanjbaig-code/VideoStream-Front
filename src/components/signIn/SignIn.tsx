@@ -6,9 +6,8 @@ import {
 } from "./../../Validation/InputValidation";
 import {
   useLogInMutation,
-  useResendMutation,
 } from "../../redux/FetchApi/SignIn/SignIn";
-import { SignInRequest } from "../../vite-env";
+import { SignInError, SignInRequest } from "../../vite-env";
 import { user } from "../input/Auth";
 import { signUpStore } from "../../hooks/auth";
 import Alert2 from "../alert/Alert2";
@@ -17,10 +16,9 @@ import SignInForm from "./SignInForm";
 const SignIn = () => {
   let navigation = useNavigate();
   const [verify, setVerify] = useState(false);
-  const [logIn, { data, isLoading, isSuccess }] = useLogInMutation();
-  const [resend, { isSuccess: ResendSuccess }] = useResendMutation();
+  const [logIn, { data, isLoading, isSuccess, isError, error }] =
+    useLogInMutation();
   const [showError, setShowError] = useState("");
-  const [email, setEmail] = useState("");
 
   const handleSubmit = async (form: { email: string; password: string }) => {
     setShowError("");
@@ -46,26 +44,22 @@ const SignIn = () => {
               navigation("/");
             }
           } else {
-            setEmail(form.email);
             setVerify(true);
           }
         }
 
         return true;
       } else {
-        setShowError("Email and Password is Incorrect");
         return false;
       }
     } else {
-      setShowError("Email and password is not written correctly");
+      setShowError("Please fill the form correctly");
     }
   };
 
   async function ALertCLose() {
-    await resend(String(email));
-    if (ResendSuccess) {
-      setVerify(false);
-    }
+    navigation("/resendMail")
+    setVerify(false);
   }
 
   return (
@@ -78,7 +72,9 @@ const SignIn = () => {
           key={Math.random()}
           isLoading={isLoading}
           showError={showError}
+          error={(error as SignInError | undefined )}
           handleSubmitForm={handleSubmit}
+          isError={isError}
         />
 
         <p>

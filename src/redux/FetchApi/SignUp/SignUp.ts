@@ -7,7 +7,7 @@ export const SignUp = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: Url,
   }) as BaseQueryFn<string | FetchArgs, unknown, ResendError , {}>,
-  tagTypes: ["Resend"],
+  // tagTypes: ["Resend"],
   endpoints: (builder) => ({
     register: builder.mutation<SignUpQueryState, SignUpRequest>({
       query: (data) => ({
