@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRegisterMutation } from "../../redux/FetchApi/SignUp/SignUp";
 import { SignUpRequest } from "../../vite-env";
 import Alert2 from "../alert/Alert2";
@@ -17,8 +17,11 @@ export const SigUp = () => {
   const [register, { isError, error: SignUpError, isSuccess, isLoading }] =
     useRegisterMutation();
 
-  const handleSignUp = async (form: { name: string; email: string; password: string; }) => {
-
+  const handleSignUp = async (form: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     const nameError = validateName(form.name);
     const emailError = validationEmail(form.email);
     const passwordError = validatePassword(form.password);
@@ -30,13 +33,13 @@ export const SigUp = () => {
         password: form.password,
       };
       let result = await register(signUp);
-      return true
+      return true;
     } else {
       setOpenAlert({
         show: true,
         msg: "Please fill the form correctly",
       });
-      return false
+      return false;
     }
   };
   const CheckAccount = useCallback(() => {
@@ -77,7 +80,11 @@ export const SigUp = () => {
           />
         </div>
         {openALert.show && (
-          <Alert2 msg={openALert.msg} close={CloseAlert} buttonCalled={"Close"} />
+          <Alert2
+            msg={openALert.msg}
+            close={CloseAlert}
+            buttonCalled={"Close"}
+          />
         )}
       </section>
     </>

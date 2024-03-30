@@ -4,6 +4,12 @@ import Input from "../input/Input";
 import { useResendEmailMutation } from "../../redux/FetchApi/SignUp/SignUp";
 import ReactLoading from "react-loading";
 import Alert2 from "../alert/Alert2";
+import { ResendError } from "../../vite-env";
+
+interface openALert {
+  show: boolean;
+  msg: string | undefined;
+}
 
 const ResendMail = () => {
   const [resendEmail, { isLoading, data, isSuccess, isError, error }] =
@@ -13,7 +19,7 @@ const ResendMail = () => {
     err: "",
   });
 
-  const [openALert, setOpenAlert] = React.useState({
+  const [openALert, setOpenAlert] = React.useState<openALert>({
     show: false,
     msg: "",
   });
@@ -44,11 +50,11 @@ const ResendMail = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!EmailError.isValid) {
-      await resendEmail(form.email);
+      await resendEmail({ email: String(form.email) });
       if (isSuccess) {
         setOpenAlert({
           show: true,
-          msg: data.msg,
+          msg: data?.msg,
         });
       }
     }
@@ -85,7 +91,11 @@ const ResendMail = () => {
           divClassName={null}
         />
 
-        {isError && <p className="text-red-400 text-sm">{error.data.msg}</p>}
+        {isError && (
+          <p className="text-red-400 text-sm">
+            {(error as ResendError)?.data.msg}
+          </p>
+        )}
 
         {isLoading && <ReactLoading color="#fff" type="bubbles" />}
         {openALert.show && (
@@ -96,7 +106,10 @@ const ResendMail = () => {
           />
         )}
 
-        <button type="submit" className="p-5 cursor-pointer bg-blue-600 w-44 h-16 rounded-lg">
+        <button
+          type="submit"
+          className="p-5 cursor-pointer bg-blue-600 w-44 h-16 rounded-lg"
+        >
           Submit
         </button>
       </form>

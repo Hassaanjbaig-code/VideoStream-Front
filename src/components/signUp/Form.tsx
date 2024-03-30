@@ -6,6 +6,7 @@ import {
   validatePassword,
 } from "../../Validation/InputValidation";
 import ReactLoading from "react-loading";
+import { Link } from "react-router-dom";
 
 interface FormProps {
   isError: boolean;
@@ -15,10 +16,15 @@ interface FormProps {
     email: string;
     password: string;
   }) => Promise<boolean>;
-  loading: boolean
+  loading: boolean;
 }
 
-const Form: React.FC<FormProps> = ({ isError, error, FormSubmit, loading }: FormProps) => {
+const Form: React.FC<FormProps> = ({
+  isError,
+  error,
+  FormSubmit,
+  loading,
+}: FormProps) => {
   const [passwordDisplay, setPasswordDisplay] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -90,7 +96,7 @@ const Form: React.FC<FormProps> = ({ isError, error, FormSubmit, loading }: Form
       password: form.password,
     });
 
-    if (await data == true) {
+    if ((await data) == true) {
       setForm({
         name: "",
         email: "",
@@ -156,6 +162,10 @@ const Form: React.FC<FormProps> = ({ isError, error, FormSubmit, loading }: Form
       <button type="submit" className="p-5 bg-blue-600 w-44 h-16 rounded-lg">
         Submit
       </button>
+      <p>
+        For resend your verification code{" "}
+        <Link to={"/resendMail"} className="text-lg text-blue-400">Click Me</Link>
+      </p>
     </form>
   );
 };
