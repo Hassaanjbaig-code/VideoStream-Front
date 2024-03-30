@@ -23,9 +23,8 @@ const SignIn = () => {
   const handleSubmit = async (form: { email: string; password: string }) => {
     setShowError("");
     const emailVerify = validationEmail(form.email);
-    const passwordVerify = validatePassword(form.password);
 
-    if (!emailVerify.isValid && !passwordVerify.isValid) {
+    if (!emailVerify.isValid) {
       const signIn: SignInRequest = {
         email: form.email,
         password: form.password,

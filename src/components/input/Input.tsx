@@ -5,15 +5,15 @@ interface input {
   name: string;
   label: string;
   type: string;
-  error: Terror;
+  error: Terror | undefined;
   value: string;
   classeWraper: string | null;
   password?: boolean | null;
   passwordChecker: boolean;
   placeholder: string;
-  handleBlur: React.FocusEventHandler<HTMLInputElement>;
+  handleBlur: React.FocusEventHandler<HTMLInputElement> | undefined;
   handleForm: React.ChangeEventHandler<HTMLInputElement>;
-  handleFocus: React.FocusEventHandler<HTMLInputElement>;
+  handleFocus: React.FocusEventHandler<HTMLInputElement> | undefined;
   handlePasswordDisplay?: React.MouseEventHandler<HTMLButtonElement>;
   divClassName: string | null;
 }
@@ -45,7 +45,7 @@ const Input = ({
     >
       <label className="w-full">
         {label}{" "}
-        {error.isValid && <span className="text-red-500">{error.err}</span>}
+        {error !== undefined && error.isValid && <span className="text-red-500">{error.err}</span> }
       </label>
       <div className={`${passwordChecker ? "relative" : "" } w-full`}>
         <input
