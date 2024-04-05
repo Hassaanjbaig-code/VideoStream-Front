@@ -45,6 +45,11 @@ export default {
       animation: {
         Like: 'animateLike 2s ease-in-out 1',
         DropDownAlert: "animationAlert 6s ease-in-out 1",
+      },
+      backgroundImage: {
+        'Wallpaper': "url('/src/assets/Wallpaper/5399714.jpg')",
+        'Wallpaper2': "url('/src/assets/Wallpaper/subtle-prism.png')",
+        'Wallpaper3': "url('/src/assets/Wallpaper/subtle-prism(1).png')"
       }
     },
   },

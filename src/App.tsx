@@ -14,6 +14,7 @@ import { isLoggedIn } from "./components/input/Auth";
 import AnimCursor from "./components/channel/AnimCursor";
 import Activated from "./components/activated/Activated";
 import ResendMail from "./components/resendMail/ResendMail";
+
 const App = () => {
   const [showError, setshowError] = useState({
     error: "",
@@ -27,7 +28,7 @@ const App = () => {
     });
   };
   return (
-    <main className="bg-black/80 text-white">
+    <main className={`bg-Wallpaper3  text-white`}>
       <AnimCursor />
       {showError.status !== 0 && (
         <h3
