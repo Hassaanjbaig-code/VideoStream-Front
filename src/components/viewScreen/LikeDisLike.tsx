@@ -41,7 +41,7 @@ const LikeDisLike = ({ like, id, checkSignIn }: LikeDis) => {
         type="button"
         name="Like"
         className="w-24 h-14 bg-black/40 rounded-xl flex items-center justify-around"
-        onClick={() => likeAvideo(id)}
+        onClick={async () => await likeAvideo(id)}
       >
         <AiTwotoneLike
           size={likeClickButton.value ? 35 : 30}
