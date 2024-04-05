@@ -148,39 +148,17 @@ interface   videoForm {
   video: File | null;
 }
 
-interface State {
-  title: string;
-  description: string;
-  image: File | null;
-  video: File | null;
-}
-
-interface formState {
-  title: string;
-  description: string
-}
-
-interface FormcardProps {
-  SubmitVideo: React.FormEventHandler<HTMLFormElement> | undefined;
-  state: State,
-  setState: Dispatch<SetStateAction<State>>;
-  // setForm: Dispatch<SetStateAction<formState>>;
-  setForm: Dispatch<React.SetStateAction<any>>
-  setTitle: (title: string) => void
-  title: string
-  FormData: formState;
+interface FormSubmit {
   showError: {
+    mes: ReactNode;
     error: boolean;
-    mss: string;
-  };
-  handleChangeImageVideoProps: ({
-    name,
-    file,
-  }: {
-    name: string;
-    file: File | undefined;
-  }) => void;
-  handleChangeProp: ({name, value}) => void
+  }
+  handleSubmitForm: (form: {
+    title: string;
+    description: string;
+    image: File | null;
+    video: File | null;
+  }) => Promise<boolean | undefined>
 }
 
 interface SignInError {
