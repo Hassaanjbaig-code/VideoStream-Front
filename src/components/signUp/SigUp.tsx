@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useRegisterMutation } from "../../redux/FetchApi/SignUp/SignUp";
 import {
   CustomResponseSignInError,
-  HandleSignUpError,
-  ResendError,
   SignUpRequest,
 } from "../../vite-env";
 import Alert2 from "../alert/Alert2";
@@ -37,7 +35,7 @@ export const SigUp = () => {
         email: form.email,
         password: form.password,
       };
-      let result = await register(signUp);
+      await register(signUp);
       return true;
     } else {
       setOpenAlert({

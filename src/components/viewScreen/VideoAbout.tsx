@@ -1,5 +1,3 @@
-import React from "react";
-
 interface VideoAbout {
   View: number | undefined;
   description: string | undefined;

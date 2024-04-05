@@ -1,4 +1,3 @@
-import React from "react";
 import { FaWhatsapp, FaFacebookSquare, FaInstagram } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 

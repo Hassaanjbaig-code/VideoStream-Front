@@ -4,19 +4,14 @@ import {
   validImage,
   validateVideo,
 } from "../../Validation/InputValidation";
-import Input from "../input/Input";
-import React, { useState, useRef, useEffect } from "react";
-import TextArea from "../input/textArea";
+import { useState } from "react";
 import { useAddVideoMutation } from "../../redux/FetchApi/VideoFetch/Video";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineLoading } from "react-icons/ai";
-import { FFmpeg } from "@ffmpeg/ffmpeg";
 import ReactLoading from "react-loading";
 import Formcard from "./FormCard";
 import { videoForm } from "../../vite-env";
 
 const CreateCard = () => {
-  const [addVideo, { isLoading, error }] = useAddVideoMutation();
+  const [addVideo, { isLoading }] = useAddVideoMutation();
   const [showError ,setShowError] = useState({
     error: false,
     mes: ""

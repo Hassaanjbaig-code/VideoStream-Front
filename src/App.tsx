@@ -16,29 +16,9 @@ import Activated from "./components/activated/Activated";
 import ResendMail from "./components/resendMail/ResendMail";
 
 const App = () => {
-  const [showError, setshowError] = useState({
-    error: "",
-    status: 0,
-  });
-  const showingError = (error: string, status: number) => {
-    setshowError({
-      ...showError,
-      error,
-      status: status,
-    });
-  };
   return (
     <main className={`bg-Wallpaper3 text-white font-Roboto`}>
       <AnimCursor />
-      {showError.status !== 0 && (
-        <h3
-          className={`w-full h-10 flex justify-center items-center ${
-            showError.status == 200 ? "bg-green-300" : "bg-red-500"
-          } `}
-        >
-          {showError.error}
-        </h3>
-      )}
       <Nav />
       <Routes>
         <Route path="/SignIn" element={<SignIn />} />

@@ -8,10 +8,9 @@ import Input from "../input/Input";
 import TextArea from "../input/textArea";
 import { useCreateChannelMutation } from "../../redux/FetchApi/channel/Channel";
 import { useNavigate } from "react-router-dom";
-// import { handleCreateChannel } from "../../vite-env";
 
 const CreateChannel = () => {
-  const [createChannel, { isError, isSuccess, error }] =
+  const [createChannel, { isError, isSuccess }] =
     useCreateChannelMutation();
 
   const Navigate = useNavigate();

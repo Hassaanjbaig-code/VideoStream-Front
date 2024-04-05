@@ -1,12 +1,9 @@
 // import { useState, useEffect } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  useAddDisLikeCommentMutation,
-  useAddLikeCommentMutation,
   useDeleteComentMutation,
   useShowCommentQuery,
 } from "../../redux/FetchApi/VideoFetch/Video";
-import { FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { CiMenuKebab } from "react-icons/ci";
 import ReactLoading from "react-loading";
 
@@ -20,18 +17,10 @@ interface ShowComment {
   videoLoading: boolean;
 }
 
-const ShowComment = ({ id, videoLoading }: ShowComment) => {
+const ShowComment = ({ id  }: ShowComment) => {
   const [commentEdit, setCommentEdit] = useState(false);
-  const [addLikeComment] = useAddLikeCommentMutation();
-  const [addDisLikeComment] = useAddDisLikeCommentMutation();
-
-  // if (videoLoading) {
-  //   return (
-  //     <div>
-  //       <ReactLoading color="#fff" type="bars" />
-  //     </div>
-  //   );
-  // }
+  // const [addLikeComment] = useAddLikeCommentMutation();
+  // const [addDisLikeComment] = useAddDisLikeCommentMutation();
 
   const { data: commentData, isLoading: commentDataLoading } =
     useShowCommentQuery(String(id));
@@ -50,33 +39,33 @@ const ShowComment = ({ id, videoLoading }: ShowComment) => {
       </div>
     );
   }
-  const AddLikeComment: React.MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
-    const commentID = event.currentTarget.dataset.commentId;
-    // console.log("DataSet Comment ID", commentID); // Retrieve commentID from the data attribute
-    if (commentID) {
-      const response = await addLikeComment(String(commentID));
-      if ("data" in response) {
-        if (response.data.status == 200 || 201) {
-        }
-      }
-    }
-  };
+  // const AddLikeComment: React.MouseEventHandler<HTMLButtonElement> = async (
+  //   event
+  // ) => {
+  //   const commentID = event.currentTarget.dataset.commentId;
+  //   // console.log("DataSet Comment ID", commentID); // Retrieve commentID from the data attribute
+  //   if (commentID) {
+  //     const response = await addLikeComment(String(commentID));
+  //     if ("data" in response) {
+  //       if (response.data.status == 200 || 201) {
+  //       }
+  //     }
+  //   }
+  // };
 
-  const AddDisLIkeComment: React.MouseEventHandler<HTMLButtonElement> = async (
-    e
-  ) => {
-    const commentID = e.currentTarget.dataset.commentId;
-    if (commentID) {
-      const response = await addDisLikeComment(String(commentID));
-      if ("data" in response) {
-        if (response.data.status == 200 || 201) {
-          console.log(response.data.message);
-        }
-      }
-    }
-  };
+  // const AddDisLIkeComment: React.MouseEventHandler<HTMLButtonElement> = async (
+  //   e
+  // ) => {
+  //   const commentID = e.currentTarget.dataset.commentId;
+  //   if (commentID) {
+  //     const response = await addDisLikeComment(String(commentID));
+  //     if ("data" in response) {
+  //       if (response.data.status == 200 || 201) {
+  //         console.log(response.data.message);
+  //       }
+  //     }
+  //   }
+  // };
 
   if (CommentDeleteLoading) {
     return (

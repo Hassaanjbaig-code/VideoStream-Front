@@ -27,7 +27,7 @@ const IntroVideo = ({
   async function AddSubscribe(id: string | undefined) {
     if (isLoggedIn.value) {
       if (id == undefined) return (SubscribeClickButton.value = false);
-      let data = await addSubscribe(id);
+      await addSubscribe(id);
     } else {
       checkSign()
     }
