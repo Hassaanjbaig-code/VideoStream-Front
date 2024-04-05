@@ -47,7 +47,7 @@ const Controls = (props: ControlsProps) => {
     value: number;
   }) => {
     props.setPlayBackSpeed({ Selectedspeed: speed, Speed: value });
-    props.setSetting(false)
+    props.setSetting(false);
   };
 
   const handleMouseDown = () => {
@@ -159,7 +159,7 @@ const Controls = (props: ControlsProps) => {
           ))}
         </ul>
       </li>
-      <li>
+      <li className="h-5">
         <button
           type="button"
           className="md:w-5 w-3"
@@ -168,7 +168,7 @@ const Controls = (props: ControlsProps) => {
           <AiOutlineSetting size={20} />
         </button>
       </li>
-      <li>
+      <li className="h-5">
         <button
           type="button"
           className="md:w-5 w-3"

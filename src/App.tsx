@@ -28,7 +28,7 @@ const App = () => {
     });
   };
   return (
-    <main className={`bg-Wallpaper3  text-white`}>
+    <main className={`bg-Wallpaper3 text-white font-Roboto`}>
       <AnimCursor />
       {showError.status !== 0 && (
         <h3

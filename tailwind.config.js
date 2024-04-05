@@ -1,57 +1,59 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: { 
+    extend: {
       keyframes: {
         animateLike: {
-          '0%': {
-            transform: 'scale(1)' // Added quotes and fixed syntax
+          "0%": {
+            transform: "scale(1)", // Added quotes and fixed syntax
           },
-          '100%': {
-            transform: 'scale(1.15)' // Added quotes and fixed syntax
-          }
+          "100%": {
+            transform: "scale(1.15)", // Added quotes and fixed syntax
+          },
         },
         animationAlert: {
           "0%": {
-            top: "0"
-          }, 
-          "10%" :{
-            top: "2rem"
+            top: "0",
           },
-          "20%" :{
-            top: "4rem"
+          "10%": {
+            top: "2rem",
           },
-          "30%" :{
-            top: "6rem"
+          "20%": {
+            top: "4rem",
           },
-          "40%" :{
-            top: "8rem"
+          "30%": {
+            top: "6rem",
           },
-          "50%" :{
-            top: "10rem"
+          "40%": {
+            top: "8rem",
           },
-          "60%" :{
-            top: "12rem"
+          "50%": {
+            top: "10rem",
           },
-          "100%" :{
-            top: "14rem"
+          "60%": {
+            top: "12rem",
           },
-        }
+          "100%": {
+            top: "14rem",
+          },
+        },
       },
       animation: {
-        Like: 'animateLike 2s ease-in-out 1',
+        Like: "animateLike 2s ease-in-out 1",
         DropDownAlert: "animationAlert 6s ease-in-out 1",
       },
       backgroundImage: {
-        'Wallpaper': "url('/src/assets/Wallpaper/5399714.jpg')",
-        'Wallpaper2': "url('/src/assets/Wallpaper/subtle-prism.png')",
-        'Wallpaper3': "url('/src/assets/Wallpaper/subtle-prism(1).png')"
-      }
+        Wallpaper: "url('/src/assets/Wallpaper/5399714.jpg')",
+        Wallpaper2: "url('/src/assets/Wallpaper/subtle-prism.png')",
+        Wallpaper3: "url('/src/assets/Wallpaper/subtle-prism(1).png')",
+      },
+      fontFamily: {
+        Roboto: ['"Roboto Condensed"', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],
-}
+};
