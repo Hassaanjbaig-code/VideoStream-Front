@@ -7,6 +7,7 @@ import {
   QueryActionCreatorResult,
 } from "@reduxjs/toolkit/query";
 import { AnyObject } from "mongoose";
+import React, { Dispatch, ReactNode, SetStateAction } from "react";
 
 type ApiResponse =
   | {
@@ -85,7 +86,6 @@ type CustomResponseSignIn = {
 
 type CustomResponseSignInError = {
   data: {
-    status: Number;
     message: string;
   };
 };
@@ -134,6 +134,53 @@ interface ResendError {
   data: {
     msg: string;
   };
+}
+
+interface HandleSignUpError {
+  isSignUpError: boolean;
+  SignUpError: string | undefined;
+}
+
+interface   videoForm {
+  title: string;
+  description: string;
+  image: File | null;
+  video: File | null;
+}
+
+interface State {
+  title: string;
+  description: string;
+  image: File | null;
+  video: File | null;
+}
+
+interface formState {
+  title: string;
+  description: string
+}
+
+interface FormcardProps {
+  SubmitVideo: React.FormEventHandler<HTMLFormElement> | undefined;
+  state: State,
+  setState: Dispatch<SetStateAction<State>>;
+  // setForm: Dispatch<SetStateAction<formState>>;
+  setForm: Dispatch<React.SetStateAction<any>>
+  setTitle: (title: string) => void
+  title: string
+  FormData: formState;
+  showError: {
+    error: boolean;
+    mss: string;
+  };
+  handleChangeImageVideoProps: ({
+    name,
+    file,
+  }: {
+    name: string;
+    file: File | undefined;
+  }) => void;
+  handleChangeProp: ({name, value}) => void
 }
 
 interface SignInError {

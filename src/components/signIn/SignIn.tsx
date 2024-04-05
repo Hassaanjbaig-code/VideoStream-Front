@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  validationEmail,
-  validatePassword,
-} from "./../../Validation/InputValidation";
-import {
-  useLogInMutation,
-} from "../../redux/FetchApi/SignIn/SignIn";
+import { validationEmail } from "./../../Validation/InputValidation";
+import { useLogInMutation } from "../../redux/FetchApi/SignIn/SignIn";
 import { SignInError, SignInRequest } from "../../vite-env";
 import { user } from "../input/Auth";
 import { signUpStore } from "../../hooks/auth";
@@ -30,34 +25,43 @@ const SignIn = () => {
         password: form.password,
       };
       await logIn(signIn);
-
-      if (isSuccess) {
-        if (data?.status == 200) {
-          if (data?.verify) {
-            let store = { token: data?.token, channel: data?.channel };
-            signUpStore(store);
-            if (data?.channel.status == 404) {
-              navigation("/createChannel");
-            } else {
-              user.value = store;
-              navigation("/");
-            }
-          } else {
-            setVerify(true);
-          }
-        }
-
-        return true;
-      } else {
-        return false;
-      }
+      return true
     } else {
       setShowError("Please fill the form correctly");
+      return false
     }
   };
 
+  useEffect(() => {
+    resultSubmit()
+  }, [isSuccess])
+  
+
+  const resultSubmit = useCallback(() => {
+    if (isSuccess) {
+      if (data?.status == 200) {
+        if (data?.verify) {
+          let store = { token: data?.token, channel: data?.channel };
+          signUpStore(store);
+          if (data?.channel.status == 404) {
+            navigation("/createChannel");
+          } else {
+            user.value = store;
+            navigation("/");
+          }
+        } else {
+          setVerify(true);
+        }
+      }
+
+      return true;
+    } else {
+      return false;
+    }
+  }, [isSuccess]);
+
   async function ALertCLose() {
-    navigation("/resendMail")
+    navigation("/resendMail");
     setVerify(false);
   }
 
@@ -71,7 +75,7 @@ const SignIn = () => {
           key={Math.random()}
           isLoading={isLoading}
           showError={showError}
-          error={(error as SignInError | undefined )}
+          error={error as SignInError | undefined}
           handleSubmitForm={handleSubmit}
           isError={isError}
         />

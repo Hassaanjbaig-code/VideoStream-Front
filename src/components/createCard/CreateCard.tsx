@@ -10,9 +10,8 @@ import TextArea from "../input/textArea";
 import { useAddVideoMutation } from "../../redux/FetchApi/VideoFetch/Video";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai";
-import CompressVideo from "../../hooks/CompressVideo";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { toBlobURL } from "@ffmpeg/util";
+import ReactLoading from "react-loading";
 
 const CreateCard = () => {
   const [addVideo, { isLoading, error }] = useAddVideoMutation();
@@ -169,7 +168,7 @@ const CreateCard = () => {
   if (isLoading) {
     return (
       <div className="w-full h-screen flex justify-center items-center">
-        <AiOutlineLoading style={{ transform: "rotate(90deg)" }} size={30} />
+        <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
       </div>
     );
   }

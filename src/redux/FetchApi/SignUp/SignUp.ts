@@ -18,7 +18,7 @@ export const SignUp = createApi({
     }),
     resendEmail: builder.mutation<ResendSuccess, {email: string}>({
       query: (email) => ({
-        url: `/resendLink/${email}`,
+        url: `/resendLink/${email.email}`,
         method: "GET"
       }),
       // transformErrorResponse: (result) => result.data,

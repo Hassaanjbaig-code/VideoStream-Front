@@ -23,40 +23,50 @@ export function validationEmail(value: string): validateEmail {
   };
 }
 
-export function validImage(value: File): validateEmail {
-  const supportedFile = ["jpg", "png", "jpeg"];
-  let fileArrey = value.type.split("")
-  let find = fileArrey.indexOf("/")
-
-  let sliceArray = fileArrey.slice(find + 1).join("")
-  if(!supportedFile.includes(sliceArray)){
+export function validImage(value: File | null): validateEmail {
+  if (value == null)
     return {
       isValid: true,
-      err: "Image should be jpg, png, jpeg"
-    }
-  }
-  return {
-    isValid: false,
-    err: ""
-  }
-}
+      err: "Image should be jpg, png, jpeg",
+    };
+  const supportedFile = ["jpg", "png", "jpeg"];
+  let fileArrey = value.type.split("");
+  let find = fileArrey.indexOf("/");
 
-export function validateVideo(value:File): validateEmail {
-  const supportedFile = ["mkv", "mp4"]
-  let makeFileArray = value.type.split("")
-  let find = makeFileArray.indexOf("/")
-  let sliceArray = makeFileArray.slice(find + 1).join("")
+  let sliceArray = fileArrey.slice(find + 1).join("");
   if (!supportedFile.includes(sliceArray)) {
     return {
       isValid: true,
-      err: "Video should be mkv, mp4"
-    }
+      err: "Image should be jpg, png, jpeg",
+    };
+  }
+  return {
+    isValid: false,
+    err: "",
+  };
+}
+
+export function validateVideo(value: File | null): validateEmail {
+  if (value == null)
+    return {
+      isValid: true,
+      err: "Video should be mkv, mp4",
+    };
+  const supportedFile = ["mkv", "mp4"];
+  let makeFileArray = value.type.split("");
+  let find = makeFileArray.indexOf("/");
+  let sliceArray = makeFileArray.slice(find + 1).join("");
+  if (!supportedFile.includes(sliceArray)) {
+    return {
+      isValid: true,
+      err: "Video should be mkv, mp4",
+    };
   }
 
   return {
     isValid: false,
-    err: ""
-  }
+    err: "",
+  };
 }
 
 export function validatePassword(
@@ -149,7 +159,7 @@ export function validateTitle(
 export function validateDes(
   value: string,
   minLenght: number = 2,
-  maxLength: number = 255
+  maxLength: number = 350
 ) {
   if (value.length <= minLenght) {
     return {

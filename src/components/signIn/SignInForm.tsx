@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   validationEmail,
-  validatePassword,
 } from "./../../Validation/InputValidation";
 import Input from "../input/Input";
 import ReactLoading from "react-loading";
@@ -82,6 +81,7 @@ const SignInForm: React.FC<SignInFormProp> = ({
       });
     }
   };
+
 
   return (
     <form

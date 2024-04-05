@@ -1,21 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ChannelDetail, ChannelFormData } from "../../../vite-env";
 import { Url } from "../../../hooks/auth";
-
-interface tokenImport {
-  token: string;
-  channel: string;
-}
-const token: tokenImport = JSON.parse(
-  localStorage.getItem("User Detail") || "{}"
-);
+import { user } from "../../../components/input/Auth";
 
 export const channel = createApi({
   reducerPath: "channel",
   baseQuery: fetchBaseQuery({
     baseUrl: Url,
     headers: {
-      Authorization: `Bearer ${token.token}`,
+      authorization: `Bearer ${user.value?.token}`,
     },
   }),
   tagTypes: ["Video"],

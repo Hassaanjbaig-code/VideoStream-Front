@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { validationEmail } from "../../Validation/InputValidation";
 import Input from "../input/Input";
 import { useResendEmailMutation } from "../../redux/FetchApi/SignUp/SignUp";
@@ -51,14 +51,18 @@ const ResendMail = () => {
     e.preventDefault();
     if (!EmailError.isValid) {
       await resendEmail({ email: String(form.email) });
-      if (isSuccess) {
-        setOpenAlert({
-          show: true,
-          msg: data?.msg,
-        });
-      }
     }
   };
+
+  // if (isSuccess) {
+  // }
+
+  useEffect(() => {
+    setOpenAlert({
+      show: isSuccess,
+      msg: data?.msg,
+    });
+  }, [isSuccess, data]);
 
   function CloseAlert() {
     setOpenAlert({

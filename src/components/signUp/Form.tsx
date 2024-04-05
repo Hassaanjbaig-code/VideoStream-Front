@@ -35,6 +35,7 @@ const Form: React.FC<FormProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
+  
   const [NameError, setnameError] = useState({
     isValid: false,
     err: "",
