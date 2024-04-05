@@ -62,7 +62,7 @@ const LikeDisLike = ({ like, id, checkSignIn }: LikeDis) => {
         type="button"
         name="Dislike"
         className="w-[3rem] h-14 bg-black/40 rounded-xl flex items-center justify-around"
-        onClick={() => !likeClickButton.value && DisLikeVideo(id)}
+        onClick={async () => !likeClickButton.value && await DisLikeVideo(id)}
       >
         <AiTwotoneDislike
           size={DislikeClickButton.value ? 35 : 30}
