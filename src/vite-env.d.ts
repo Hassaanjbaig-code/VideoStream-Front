@@ -141,7 +141,7 @@ interface HandleSignUpError {
   SignUpError: string | undefined;
 }
 
-interface   videoForm {
+interface videoForm {
   title: string;
   description: string;
   image: File | null;
@@ -152,13 +152,13 @@ interface FormSubmit {
   showError: {
     mes: ReactNode;
     error: boolean;
-  }
+  };
   handleSubmitForm: (form: {
     title: string;
     description: string;
     image: File | null;
     video: File | null;
-  }) => Promise<boolean | undefined>
+  }) => Promise<boolean | undefined>;
 }
 
 interface SignInError {
@@ -320,8 +320,11 @@ interface Like {
 }
 
 interface likeRequest {
-  status: number;
   message: number;
+  data: {
+    status: number;
+    message: number;
+  };
 }
 
 interface commentlike {

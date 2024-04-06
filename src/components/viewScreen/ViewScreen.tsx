@@ -17,8 +17,16 @@ const ViewScreen = () => {
   const [showVideo, { isLoading, data }] = useShowVideoMutation();
   const [checkSignin, setCheckSignIn] = useState(false);
 
+  async function renderVideo(id: string | undefined) {
+    await showVideo(id);
+  }
+
   useEffect(() => {
-    showVideo(id);
+    try {
+      renderVideo(id)
+    } catch (error) {
+      console.error(error);
+    }
   }, [id]);
 
   useEffect(() => {
@@ -27,15 +35,18 @@ const ViewScreen = () => {
     }, 3000);
   }, [checkSignin]);
 
+  useEffect(() => {
+    Check(data);
+  }, [data])
+  
   // Return loading indicator if data is still loading
   isLoading && (
-    <div className="w-full h-screen flex justify-center items-center" >
+    <div className="w-full h-screen flex justify-center items-center">
       <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
     </div>
   );
 
   // Check for data existence
-  Check(data);
 
   function checkSigIn() {
     if (isLoggedIn) {
@@ -77,7 +88,11 @@ const ViewScreen = () => {
           key={data?.data._id}
           createdAt={data?.data.createdAt}
         />
-        <Comments totalComment={data?.TotalComment} videoID={data?.data._id} checkSignIn={checkSigIn} />
+        <Comments
+          totalComment={data?.TotalComment}
+          videoID={data?.data._id}
+          checkSignIn={checkSigIn}
+        />
         <ShowComment id={id} videoLoading={isLoading} />
       </section>
       <section className="w-[30%] max-md:w-full">

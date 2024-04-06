@@ -48,7 +48,7 @@ export const FetchVideo = createApi({
         url: `/${id}`,
         method: "GET",
       }),
-      invalidatesTags: ["Video", "showVideo"],
+      invalidatesTags: ["showVideo"],
     }),
     addLike: builder.mutation<likeRequest, String>({
       query: (data) => ({

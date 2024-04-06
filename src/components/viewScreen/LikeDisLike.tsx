@@ -20,16 +20,27 @@ const LikeDisLike = ({ like, id, checkSignIn }: LikeDis) => {
   async function likeAvideo(id: string | undefined) {
     if (isLoggedIn.value) {
       if (id == undefined) return (likeClickButton.value = false);
-      await addLike(id);
+      let result = await addLike(id);
+      // if ("data" in result && result.data.message === 200) {
+      //   likeClickButton.value = true;
+      // } else {
+      //   likeClickButton.value = false;
+      // }
       if (likeClickButton.value == false) new Audio(sound).play();
     } else {
       checkSignIn();
     }
   }
+
   async function DisLikeVideo(id: string | undefined) {
     if (isLoggedIn.value) {
       if (id == undefined) return (DislikeClickButton.value = false);
-      await addDisLike(id);
+      let result = await addDisLike(id);
+      if ("data" in result && result.data.message === 200) {
+        DislikeClickButton.value = true;
+      } else {
+        DislikeClickButton.value = false;
+      }
       if (DislikeClickButton.value == false) new Audio(SSound).play();
     } else {
       checkSignIn();
@@ -62,7 +73,7 @@ const LikeDisLike = ({ like, id, checkSignIn }: LikeDis) => {
         type="button"
         name="Dislike"
         className="w-[3rem] h-14 bg-black/40 rounded-xl flex items-center justify-around"
-        onClick={async () => !likeClickButton.value && await DisLikeVideo(id)}
+        onClick={async () => !likeClickButton.value && (await DisLikeVideo(id))}
       >
         <AiTwotoneDislike
           size={DislikeClickButton.value ? 35 : 30}

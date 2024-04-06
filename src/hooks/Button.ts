@@ -1,5 +1,4 @@
 import { signal } from "@preact/signals-react";
-import Like from "../customFunction/Like";
 import { tokenImport, videoType } from "../vite-env";
 import { isLoggedIn } from "../components/input/Auth";
 
@@ -41,26 +40,26 @@ export function Check(data: videoType | undefined) {
   }
 }
 
-interface EventHandlerButtonType {
-  name: string | undefined;
-  id: string | undefined;
-}
+// interface EventHandlerButtonType {
+//   name: string | undefined;
+//   id: string | undefined;
+// }
 
-export function EventHandlerButton({ name, id }: EventHandlerButtonType): any {
-  switch (name) {
-    case "Like":
-      Like(id);
-      break;
-    case "Subscribe":
-      Subscribe();
-      break;
-    case "Dislike":
-      Dislike();
-      break;
-    default:
-      break;
-  }
-}
+// export function EventHandlerButton({ name, id }: EventHandlerButtonType): any {
+//   switch (name) {
+//     case "Like":
+//       Like(id);
+//       break;
+//     case "Subscribe":
+//       Subscribe();
+//       break;
+//     case "Dislike":
+//       Dislike();
+//       break;
+//     default:
+//       break;
+//   }
+// }
 
 // function Like(id: string | undefined) {
 //   const [addLike] =
@@ -79,9 +78,9 @@ export function EventHandlerButton({ name, id }: EventHandlerButtonType): any {
 //   }
 // }
 
-function Subscribe() {
-  console.log("Function of Subscribe");
-}
-function Dislike() {
-  console.log("Function of Dislike");
-}
+// function Subscribe() {
+//   console.log("Function of Subscribe");
+// }
+// function Dislike() {
+//   console.log("Function of Dislike");
+// }
