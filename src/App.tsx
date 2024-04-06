@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { SigUp } from "./components/signUp/SigUp";
 import Home from "./components/home/Home";
 import Nav from "./components/navBar/Nav";
-import { useState } from "react";
 import CreateCard from "./components/createCard/CreateCard";
 import CreateChannel from "./components/channel/CreateChannel";
 import Footer from "./components/footer/Footer";
