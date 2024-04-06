@@ -97,7 +97,7 @@ const Controls = (props: ControlsProps) => {
     <ul className="absolute left-0 bottom-2 z-30 flex justify-evenly items-center w-[99%] md:w-full max-sm:pl-[0.5%]">
       <li>
         <button onClick={() => props.setPlaying(!props.playing)}>
-          {props.playing && currentTime == duration ? <IoPause /> : <IoPlay />}
+          {props.playing || currentTime == duration ? <IoPause /> : <IoPlay />}
         </button>
       </li>
       <li className="max-md:w-[10%]">

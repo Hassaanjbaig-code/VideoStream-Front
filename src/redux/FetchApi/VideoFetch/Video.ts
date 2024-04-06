@@ -8,9 +8,8 @@ import {
   showComments,
   commentlike,
   commentDelete,
-  VideoFormData,
+  VideoFormData
 } from "../../../vite-env";
-import { Url } from "../../../hooks/auth";
 
 interface tokenImport {
   token: string;
@@ -20,10 +19,14 @@ const token: tokenImport = JSON.parse(
   localStorage.getItem("User Detail") || "{}"
 );
 
+// console.log(token.token)
+
+// const tokenJson: tokenImport = JSON.parse(token)
+
 export const FetchVideo = createApi({
   reducerPath: "FetchVideo",
   baseQuery: fetchBaseQuery({
-    baseUrl: Url,
+    baseUrl: "http://localhost:3000",
     headers: {
       Authorization: `Bearer ${token.token}`,
     },
@@ -43,12 +46,9 @@ export const FetchVideo = createApi({
       }),
       invalidatesTags: ["Video"],
     }),
-    showVideo: builder.mutation<videoType, any>({
-      query: (id) => ({
-        url: `/${id}`,
-        method: "GET",
-      }),
-      invalidatesTags: ["showVideo"],
+    showVideo: builder.query<videoType, String>({
+      query: (id) => `/${id}`,
+      providesTags: ["Video", "showVideo"],
     }),
     addLike: builder.mutation<likeRequest, String>({
       query: (data) => ({
@@ -113,7 +113,7 @@ export const FetchVideo = createApi({
 export const {
   useStartVideoQuery,
   useAddVideoMutation,
-  useShowVideoMutation,
+  useShowVideoQuery,
   useAddLikeMutation,
   useAddSubscribeMutation,
   useAddDisLikeMutation,
@@ -121,5 +121,5 @@ export const {
   useShowCommentQuery,
   useAddLikeCommentMutation,
   useAddDisLikeCommentMutation,
-  useDeleteComentMutation,
+  useDeleteComentMutation
 } = FetchVideo;

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useShowVideoMutation } from "../../redux/FetchApi/VideoFetch/Video";
+import { useShowVideoQuery } from "../../redux/FetchApi/VideoFetch/Video";
 import Comments from "../comment/Comments";
 import ShowComment from "../comment/ShowComment";
 import SideCard from "../sideCard/SideCard";
@@ -14,31 +14,34 @@ import Video2 from "./Video2";
 
 const ViewScreen = () => {
   const { id } = useParams();
-  const [showVideo, { isLoading, data }] = useShowVideoMutation();
+  const { isLoading, data } = useShowVideoQuery(String(id));
   const [checkSignin, setCheckSignIn] = useState(false);
 
-  async function renderVideo(id: string | undefined) {
-    await showVideo(id);
-  }
+  // async function renderVideo(id: string | undefined) {
+  //   await showVideo(id);
+  // }
+
+  // useEffect(() => {
+  //   try {
+  //     renderVideo(id)
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [id]);
 
   useEffect(() => {
-    try {
-      renderVideo(id)
-    } catch (error) {
-      console.error(error);
+    if (checkSignin == true) {
+      setTimeout(() => {
+        setCheckSignIn(false);
+      }, 3000);
     }
-  }, [id]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setCheckSignIn(false);
-    }, 3000);
   }, [checkSignin]);
 
-  useEffect(() => {
-    Check(data);
-  }, [data])
-  
+  // useEffect(() => {
+  //   Check(data);
+  // }, [data])
+  Check(data);
+
   // Return loading indicator if data is still loading
   isLoading && (
     <div className="w-full h-screen flex justify-center items-center">
@@ -57,12 +60,6 @@ const ViewScreen = () => {
       return false;
     }
   }
-
-  useEffect(() => {
-    setTimeout(() => {
-      setCheckSignIn(false);
-    }, 3000);
-  }, [checkSignin]);
 
   return (
     <section

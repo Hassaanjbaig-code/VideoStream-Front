@@ -20,7 +20,7 @@ const LikeDisLike = ({ like, id, checkSignIn }: LikeDis) => {
   async function likeAvideo(id: string | undefined) {
     if (isLoggedIn.value) {
       if (id == undefined) return (likeClickButton.value = false);
-      let result = await addLike(id);
+      await addLike(id);
       // if ("data" in result && result.data.message === 200) {
       //   likeClickButton.value = true;
       // } else {
@@ -35,12 +35,12 @@ const LikeDisLike = ({ like, id, checkSignIn }: LikeDis) => {
   async function DisLikeVideo(id: string | undefined) {
     if (isLoggedIn.value) {
       if (id == undefined) return (DislikeClickButton.value = false);
-      let result = await addDisLike(id);
-      if ("data" in result && result.data.message === 200) {
-        DislikeClickButton.value = true;
-      } else {
-        DislikeClickButton.value = false;
-      }
+      await addDisLike(id);
+      // if ("data" in result && result.data.message === 200) {
+      //   DislikeClickButton.value = true;
+      // } else {
+      //   DislikeClickButton.value = false;
+      // }
       if (DislikeClickButton.value == false) new Audio(SSound).play();
     } else {
       checkSignIn();
