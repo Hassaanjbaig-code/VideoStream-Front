@@ -6,6 +6,7 @@ import {
   validateName,
   validImage,
 } from "../../Validation/InputValidation";
+import ReactLoading from "react-loading";
 
 interface FormCreate {
   isError: boolean;
@@ -15,10 +16,11 @@ interface FormCreate {
     description: string;
     image: File | null;
   }) => Promise<boolean | undefined>;
+  isLoading: boolean
 }
 
 const FormCreateChannel = (props: FormCreate) => {
-  const { isError, error, FormSubmit } = props;
+  const { isError, error, FormSubmit, isLoading } = props;
   const [NameError, setnameError] = useState({
     isValid: false,
     err: "",
@@ -162,6 +164,9 @@ const FormCreateChannel = (props: FormCreate) => {
         handleFocus={handleBlurDes}
       />
       {isError && <p className="text-red-400">{error}</p>}
+      {isLoading && (
+        <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+      )}
       <button
         className="p-5 bg-blue-600 w-44 h-16 rounded-lg focus:ring-1 hover:bg-blue-800 hover:text-white/60"
         type="submit"

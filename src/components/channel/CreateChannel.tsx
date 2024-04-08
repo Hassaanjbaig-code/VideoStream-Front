@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useCreateChannelMutation } from "../../redux/FetchApi/channel/Channel";
 import { useNavigate } from "react-router-dom";
-import { signUpStore } from "../../hooks/auth";
-import { user } from "../input/Auth";
+import { createSignIn } from "../../hooks/auth";
 import {
   validateDes,
   validateName,
@@ -19,7 +18,7 @@ interface errorMessage {
 }
 
 const CreateChannel = () => {
-  const [createChannel, { isError, isSuccess, error, data }] =
+  const [createChannel, { isLoading ,isError, isSuccess, error, data }] =
     useCreateChannelMutation();
 
   let navigation = useNavigate();
@@ -62,7 +61,7 @@ const CreateChannel = () => {
       if (data?.status == 200) {
         // if (data?.verify) {
         let store = { token: data?.token, channel: data?.channel };
-        signUpStore(store);
+        createSignIn(store);
         navigation("/");
         // if (data?.channel.status == 404) {
         // } else {
@@ -87,6 +86,7 @@ const CreateChannel = () => {
           isError={isError}
           error={errorProps?.data.message}
           key={Math.random()}
+          isLoading={isLoading}
         />
       </div>
     </section>
