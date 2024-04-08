@@ -15,6 +15,11 @@ export const signUpStore = (store: signUpStore) => {
   localStorage.setItem("User Detail", JSON.stringify(store));
   user.value = store
 };
+export const createSignIn = (store: signUpStore) => {
+  localStorage.removeItem("User Detail")
+  localStorage.setItem("User Detail", JSON.stringify(store));
+  user.value = store
+};
 
 // Importing the Backend Url
 

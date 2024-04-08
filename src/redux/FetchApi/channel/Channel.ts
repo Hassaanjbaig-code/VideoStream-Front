@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ChannelDetail, ChannelFormData } from "../../../vite-env";
+import { ChannelDetail, ChannelFormData, SignInQueryState } from "../../../vite-env";
 import { Url } from "../../../hooks/auth";
 import { user } from "../../../components/input/Auth";
 
@@ -13,7 +13,7 @@ export const channel = createApi({
   }),
   tagTypes: ["Video"],
   endpoints: (builder) => ({
-    createChannel: builder.mutation<ChannelFormData, any>({
+    createChannel: builder.mutation<SignInQueryState, any>({
       query: (data) => ({
         url: "/channel",
         method: "POST",
