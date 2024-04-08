@@ -24,7 +24,11 @@ const CreateChannel = () => {
 
   let navigation = useNavigate();
   const errorProps = error as errorMessage | undefined;
-  const handleSubmit = async ( channelForm: {name: string, description: string, image: File | null }) => {
+  const handleSubmit = async (channelForm: {
+    name: string;
+    description: string;
+    image: File | null;
+  }) => {
     let NameError = validateName(channelForm.name);
     let DeserrorCheck = validateDes(channelForm.description);
     let ImgerrorCheck = validImage(channelForm.image);
@@ -56,19 +60,17 @@ const CreateChannel = () => {
   const resultSubmit = React.useCallback(() => {
     if (isSuccess) {
       if (data?.status == 200) {
-        if (data?.verify) {
-          let store = { token: data?.token, channel: data?.channel };
-          signUpStore(store);
-          if (data?.channel.status == 404) {
-            navigation("/");
-          } else {
-            user.value = store;
-            navigation("/");
-          }
-        }
+        // if (data?.verify) {
+        let store = { token: data?.token, channel: data?.channel };
+        signUpStore(store);
+        navigation("/");
+        // if (data?.channel.status == 404) {
+        // } else {
+        // user.value = store;
+        // navigation("/");
+        // }
+        return true;
       }
-
-      return true;
     } else {
       return false;
     }
