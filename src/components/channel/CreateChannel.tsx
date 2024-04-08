@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Input from "../input/Input";
-import TextArea from "../input/textArea";
 import { useCreateChannelMutation } from "../../redux/FetchApi/channel/Channel";
 import { useNavigate } from "react-router-dom";
 import { signUpStore } from "../../hooks/auth";
@@ -20,11 +18,6 @@ interface errorMessage {
   };
 }
 
-interface FormSubmit {
-  name: string;
-  description: string;
-  image: File | null;
-}
 const CreateChannel = () => {
   const [createChannel, { isError, isSuccess, error, data }] =
     useCreateChannelMutation();
