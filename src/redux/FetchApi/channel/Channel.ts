@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ChannelDetail, ChannelFormData, SignInQueryState } from "../../../vite-env";
+import { ChannelDetail, SignInQueryState } from "../../../vite-env";
 import { Url } from "../../../hooks/auth";
 import { user } from "../../../components/input/Auth";
 
