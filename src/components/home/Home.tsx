@@ -4,8 +4,8 @@ import { HomeVideo } from "../../vite-env";
 import ReactLoading from "react-loading";
 
 const Home = () => {
-  const { isLoading, data } = useStartVideoQuery();
-  // console.log(data?.data)
+  const { isLoading, data, error } = useStartVideoQuery();
+  console.log("This is the error of home page", error)
 
   return (
     <section className="w-full max-h-full min-h-screen">
