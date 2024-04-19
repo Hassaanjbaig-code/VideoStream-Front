@@ -28,7 +28,7 @@
 
 # 📖 [Budge App] <a name="about-project"></a>
 
-**[VideoScribe]** project, you can upload the video and also watch the video. If you like or want to join that channel you can subscribe that channel. You can also like and dislike a video. Also, having proper user authorization that the user received an email for verification.
+**[VideoScribe]** project, the users can upload the video and also watch the video. If you like or want to join that channel you can subscribe that channel. You can also like and dislike a video. Also, having proper user authorization that the user received an email for verification.
 
 ## 🛠 Built With <a name="built-with"></a>
 
