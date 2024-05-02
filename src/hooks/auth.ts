@@ -23,4 +23,4 @@ export const createSignIn = (store: signUpStore) => {
 
 // Importing the Backend Url
 
-export let Url = import.meta.env.VITE_BACK_END;
+export const Url = import.meta.env.VITE_BACK_END;

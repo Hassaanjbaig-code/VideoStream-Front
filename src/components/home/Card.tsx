@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { HomeVideo } from "../../vite-env";
 
 const Card = ({ VideoData }: {  VideoData: HomeVideo }) => {
-  let Video = VideoData.video
+  const Video = VideoData.video
   const videoPlayPause: RefObject<HTMLVideoElement> = useRef(null);
 
   const handleStart = () => {

@@ -17,18 +17,6 @@ const ViewScreen = () => {
   const { isLoading, data } = useShowVideoQuery(String(id));
   const [checkSignin, setCheckSignIn] = useState(false);
 
-  // async function renderVideo(id: string | undefined) {
-  //   await showVideo(id);
-  // }
-
-  // useEffect(() => {
-  //   try {
-  //     renderVideo(id)
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [id]);
-
   useEffect(() => {
     if (checkSignin == true) {
       setTimeout(() => {
@@ -37,9 +25,6 @@ const ViewScreen = () => {
     }
   }, [checkSignin]);
 
-  // useEffect(() => {
-  //   Check(data);
-  // }, [data])
   Check(data);
 
   // Return loading indicator if data is still loading

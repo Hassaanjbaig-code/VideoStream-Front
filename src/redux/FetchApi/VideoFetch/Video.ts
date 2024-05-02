@@ -10,6 +10,7 @@ import {
   commentDelete,
   VideoFormData
 } from "../../../vite-env";
+import { Url } from "../../../hooks/auth";
 
 interface tokenImport {
   token: string;
@@ -26,7 +27,7 @@ const token: tokenImport = JSON.parse(
 export const FetchVideo = createApi({
   reducerPath: "FetchVideo",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: Url,
     headers: {
       Authorization: `Bearer ${token.token}`,
     },
@@ -46,11 +47,11 @@ export const FetchVideo = createApi({
       }),
       invalidatesTags: ["Video"],
     }),
-    showVideo: builder.query<videoType, String>({
+    showVideo: builder.query<videoType, string>({
       query: (id) => `/${id}`,
       providesTags: ["Video", "showVideo"],
     }),
-    addLike: builder.mutation<likeRequest, String>({
+    addLike: builder.mutation<likeRequest, string>({
       query: (data) => ({
         url: `/like/${data}`,
         method: "GET",
@@ -58,7 +59,7 @@ export const FetchVideo = createApi({
       // You can specify the expected return type (void in this example)
       invalidatesTags: ["showVideo"],
     }),
-    addDisLike: builder.mutation<likeRequest, String>({
+    addDisLike: builder.mutation<likeRequest, string>({
       query: (data) => ({
         url: `/Dislike/${data}`,
         method: "GET",
@@ -81,18 +82,18 @@ export const FetchVideo = createApi({
       }),
       invalidatesTags: ["showVideo", "Comment"],
     }),
-    showComment: builder.query<showComments, String>({
+    showComment: builder.query<showComments, string>({
       query: (id) => `/comment/${id}`,
       providesTags: ["Comment", "showVideo"],
     }),
-    addLikeComment: builder.mutation<commentlike, String>({
+    addLikeComment: builder.mutation<commentlike, string>({
       query: (id) => ({
         url: `/commentLike/${id}`,
         method: "GET",
       }),
       invalidatesTags: ["Comment"],
     }),
-    addDisLikeComment: builder.mutation<commentlike, String>({
+    addDisLikeComment: builder.mutation<commentlike, string>({
       query: (id) => ({
         url: `/commentDislike/${id}`,
         method: "GET",
