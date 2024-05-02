@@ -27,15 +27,6 @@ const ViewScreen = () => {
 
   Check(data);
 
-  // Return loading indicator if data is still loading
-  isLoading && (
-    <div className="w-full h-screen flex justify-center items-center">
-      <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
-    </div>
-  );
-
-  // Check for data existence
-
   function checkSigIn() {
     if (isLoggedIn) {
       setCheckSignIn(true);
@@ -49,39 +40,42 @@ const ViewScreen = () => {
   return (
     <section
       className="flex gap-2 mt-5 pb-16 min-h-screen max-h-full md:ml-3 max-md:flex-col"
-      key={data?.data._id}
+      key={id}
     >
-      <section className="md:w-[70%]">
-        <Video2 VideoLink={data?.data.video} key={Math.random()} />
-        <div className="flex flex-col my-5">
-          <IntroVideo
-            title={data?.data.title}
-            image={data?.channel.image}
-            name={data?.channel.name}
-            view={data?.calculate}
-            Like={data?.like}
-            id={data?.data._id}
-            checkSign={checkSigIn}
-          />
-        </div>
-        <VideoAbout
-          View={data?.data.View}
-          description={data?.data.description}
-          key={data?.data._id}
-          createdAt={data?.data.createdAt}
-        />
-        <Comments
-          totalComment={data?.TotalComment}
-          videoID={data?.data._id}
-          checkSignIn={checkSigIn}
-        />
-        <ShowComment id={id} videoLoading={isLoading} />
-      </section>
-      <section className="w-[30%] max-md:w-full">
-        <SideCard data={data?.sideVideo} />
-      </section>
+      {isLoading ?
+        <div className="w-full h-screen flex justify-center items-center">
+          <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
+        </div> :
+        <><section className="md:w-[70%]">
+          <Video2 VideoLink={data?.data.video} key={Math.random()} />
+          <div className="flex flex-col my-5">
+            <IntroVideo
+              title={data?.data.title}
+              image={data?.channel.image}
+              name={data?.channel.name}
+              view={data?.calculate}
+              Like={data?.like}
+              id={data?.data._id}
+              checkSign={checkSigIn} />
+          </div>
+          <VideoAbout
+            View={data?.data.View}
+            description={data?.data.description}
+            key={data?.data._id}
+            createdAt={data?.data.createdAt} />
+          <Comments
+            totalComment={data?.TotalComment}
+            videoID={data?.data._id}
+            checkSignIn={checkSigIn} />
+          <ShowComment id={id} videoLoading={isLoading} />
+        </section>
+        <section className="w-[30%] max-md:w-full">
+            <SideCard data={data?.sideVideo} />
+          </section>
+          {checkSignin && <Alert mes="Please Sign In" />}
+        </>
 
-      {checkSignin && <Alert mes="Please Sign In" />}
+      }
     </section>
   );
 };
