@@ -5,13 +5,13 @@ const Nav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="w-full h-20 flex justify-around items-center shadow-lg shadow-black">
+    <nav className="w-full h-20 flex justify-around sm:justify-between items-center shadow-lg shadow-black">
       <Link to="/">
-        <button type="button" className="">
+        <button type="button" className="sm:ml-4">
           <h2>Video Stream</h2>
         </button>
       </Link>
-      <ul className="flex gap-5 items-center">
+      <ul className="flex gap-5 items-center sm:mr-7">
         {isLoggedIn.value ? (
           <li>
             <Link to="/">
