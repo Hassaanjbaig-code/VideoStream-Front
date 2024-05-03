@@ -38,6 +38,7 @@ const App = () => {
         <Route path="/noauth" element={<NoAuthPage />} />
         <Route path="/resendMail" element={<ResendMail />} />
       </Routes>
+      <Footer />
     </main>
   );
 };
