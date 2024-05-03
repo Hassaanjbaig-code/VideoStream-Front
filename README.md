@@ -26,7 +26,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [Budge App] <a name="about-project"></a>
+# 📖 [VideoScribe] <a name="about-project"></a>
 
 **[VideoScribe]** project, the users can upload the video and also watch the video. If you like or want to join that channel you can subscribe that channel. You can also like and dislike a video. Also, having proper user authorization that the user received an email for verification.
 
@@ -63,14 +63,6 @@
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 - [Live Demo Link](https://video-stream01.netlify.app/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- Backend -->
-
-## 🚀 Live Demo <a name="live-demo"></a>
-
-- [Live Demo Link](https://video-stream-backend-tau.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
