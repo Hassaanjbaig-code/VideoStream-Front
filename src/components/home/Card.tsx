@@ -2,7 +2,7 @@ import { useRef, RefObject } from "react";
 import { Link } from "react-router-dom";
 import { HomeVideo } from "../../vite-env";
 
-const Card = ({ VideoData }: {  VideoData: HomeVideo }) => {
+const Card = ({ VideoData }: { VideoData: HomeVideo }) => {
   const Video = VideoData.video
   const videoPlayPause: RefObject<HTMLVideoElement> = useRef(null);
 
@@ -21,8 +21,8 @@ const Card = ({ VideoData }: {  VideoData: HomeVideo }) => {
   };
 
   return (
-    <li key={Video._id} className="my-2 mx-1" id={Video._id}>
-      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-96 h-80">
+    <li key={Video._id} className="sm:my-2 mx-1 max-sm::w-full" id={Video._id}>
+      <Link to={`/${Video._id}`} className="flex flex-col gap-2 w-96 h-80 max-sm:w-[95%] max-sm:mx-[3%]">
         <video
           src={Video.video}
           width={380}

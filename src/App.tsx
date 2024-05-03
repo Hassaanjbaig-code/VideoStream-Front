@@ -10,14 +10,12 @@ import ViewScreen from "./components/viewScreen/ViewScreen";
 import ViewChannelDetial from "./components/channel/ViewChannelDetial";
 import NoAuthPage from "./components/NoAuth/noAuthPage";
 import { isLoggedIn } from "./components/input/Auth";
-import AnimCursor from "./components/channel/AnimCursor";
 import Activated from "./components/activated/Activated";
 import ResendMail from "./components/resendMail/ResendMail";
 
 const App = () => {
   return (
-    <main className={`bg-Wallpaper3 text-white font-Roboto`}>
-      <AnimCursor />
+    <main className={`bg-Wallpaper3 bg-cover text-white font-Roboto`}>
       <Nav />
       <Routes>
         <Route path="/SignIn" element={<SignIn />} />
@@ -40,7 +38,6 @@ const App = () => {
         <Route path="/noauth" element={<NoAuthPage />} />
         <Route path="/resendMail" element={<ResendMail />} />
       </Routes>
-      <Footer />
     </main>
   );
 };

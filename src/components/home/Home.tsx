@@ -4,12 +4,12 @@ import { HomeVideo } from "../../vite-env";
 import ReactLoading from "react-loading";
 
 const Home = () => {
-  const { isLoading, data, error } = useStartVideoQuery();
-  console.log("This is the error of home page", error)
+  const { isLoading, data } = useStartVideoQuery();
 
   return (
     <section className="w-full max-h-full min-h-screen">
-      <ul className={`flex flex-wrap h-full ${data?.data.length !== 0 && "my-5"}`}>
+      <ul className={`flex flex-wrap max-sm:gap-5 py-5
+       h-full ${data?.data.length !== 0 && "md:my-5"}`}>
         {isLoading ? (
           <div className="flex h-screen w-full justify-center items-center">
             <ReactLoading type="spinningBubbles" color="#fff" height={"20%"} />
